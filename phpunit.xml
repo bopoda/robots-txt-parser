@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit>
+	<logging>
+		<log type="coverage-clover" target="build/logs/clover.xml"/>
+	</logging>
+	<testsuites>
+		<testsuite name="">
+			<file>tests/CrawlDelay.php</file>
+			<file>tests/EmptyDisallow.php</file>
+			<file>tests/Host.php</file>
+			<file>tests/CleanParam.php</file>
+			<file>tests/Whitespaces.php</file>
+			<file>tests/Comments.php</file>
+		</testsuite>
+	</testsuites>
+</phpunit>
