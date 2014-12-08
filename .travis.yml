@@ -4,9 +4,3 @@ php:
   - 5.4
   - 5.3
   - hhvm
-
-before_install:
-  - composer selfupdate
-install:
-  - composer install
-
