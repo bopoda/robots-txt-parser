@@ -27,6 +27,20 @@ class CleanParamTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * @dataProvider dataCleanParamWithPathTest
+	 */
+	public function testCleanParamWithPath($robotsTxtContent, $expectedCleanParamValue)
+	{
+		$parser = new RobotsTxtParser($robotsTxtContent);
+		$this->assertInstanceOf('RobotsTxtParser', $parser);
+		$rules = $parser->getRules();
+		$this->assertObjectHasAttribute('rules', $parser);
+		$this->assertArrayHasKey('*', $rules);
+		$this->assertArrayHasKey('clean-param', $rules['*']);
+		$this->assertEquals(array($expectedCleanParamValue), $rules['*']['clean-param']);
+	}
+
+	/**
 	 * Generate test case data
 	 * @return array
 	 */
@@ -48,6 +62,22 @@ class CleanParamTest extends \PHPUnit_Framework_TestCase
 				Clean-param: utm_source&utm_medium&utm.campaign
 				",
 				'expected to remove repetitions of lines'
+			),
+		);
+	}
+
+	/**
+	 * Generate test case data
+	 * @return array
+	 */
+	public function dataCleanParamWithPathTest()
+	{
+		return array(
+			array("
+				User-Agent: *
+				Clean-param: param1 /path/file.php
+				",
+				"param1 /path/file.php",
 			),
 		);
 	}

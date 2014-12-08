@@ -10,7 +10,7 @@ class HostTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @dataProvider generateDataForTest
 	 */
-	public function testHost($robotsTxtContent)
+	public function testHost($robotsTxtContent, $expectedHost = NULL)
 	{
 		// init parser
 		$parser = new RobotsTxtParser($robotsTxtContent);
@@ -18,8 +18,14 @@ class HostTest extends \PHPUnit_Framework_TestCase
 		$this->assertInstanceOf('RobotsTxtParser', $parser);
 		$this->assertObjectHasAttribute('rules', $parser);
 		$this->assertArrayHasKey('*', $rules);
-		$this->assertArrayHasKey('host', $rules['*']);
-		$this->assertEquals('www.example.com', $rules['*']['host']);
+
+		if ($expectedHost) {
+			$this->assertArrayHasKey('host', $rules['*']);
+			$this->assertEquals($expectedHost, $rules['*']['host']);
+		}
+		else {
+			$this->assertEmpty(@$rules['*']['host']);
+		}
 	}
 
 	/**
@@ -31,8 +37,20 @@ class HostTest extends \PHPUnit_Framework_TestCase
 		return array(
 			array("
 				User-Agent: *
+			",
+			NULL,
+			),
+			array("
+				User-Agent: *
 				Host: www.example.com
-			")
+			",
+				'www.example.com',
+			),
+			array("
+				Host: example.com
+			",
+			'example.com',
+			),
 		);
 	}
 }

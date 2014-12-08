@@ -330,7 +330,7 @@ class RobotsTxtParser
 			$this->rules[$this->userAgent][$this->current_directive][] = $this->current_word;
 		}
 		elseif ($this->directiveCleanParam()) {
-			$this->rules[$this->userAgent][$this->current_directive][] = $this->current_word;
+			$this->rules[$this->userAgent][$this->current_directive][] = trim($this->current_word);
 		}
 		elseif ($this->directiveHost()) {
 			$this->rules[$this->userAgent][$this->current_directive] = $this->current_word;
@@ -416,7 +416,9 @@ class RobotsTxtParser
 	{
 		$this->current_char = mb_strtolower(mb_substr($this->content, $this->char_index, 1));
 		$this->current_word .= $this->current_char;
-		$this->current_word = trim($this->current_word);
+		if (!$this->directiveCleanParam()) {
+			$this->current_word = trim($this->current_word);
+		}
 		$this->char_index++;
 	}
 }
