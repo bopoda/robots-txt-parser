@@ -11,6 +11,7 @@
 			<file>tests/CleanParam.php</file>
 			<file>tests/Whitespaces.php</file>
 			<file>tests/Comments.php</file>
+			<file>tests/Rules.php</file>
 		</testsuite>
 	</testsuites>
 </phpunit>

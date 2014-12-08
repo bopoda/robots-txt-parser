@@ -32,19 +32,19 @@ class RobotsTxtParser
 	const DIRECTIVE_CLEAN_PARAM = 'clean-param';
 
 	// current state
-	private $state = "";
+	private $state = '';
 
 	// robots.txt file content
-	private $content = "";
+	private $content = '';
 
 	// rules set
 	private $rules = array();
 
 	// internally used variables
-	private $current_word = "";
-	private $current_char = "";
+	private $current_word = '';
+	private $current_char = '';
 	private $char_index = 0;
-	private $current_directive = "";
+	private $current_directive = '';
 	private $userAgent = "*";
 
 	/**
@@ -346,7 +346,8 @@ class RobotsTxtParser
 				$this->rules[$this->userAgent][$this->current_directive][] = $this->current_word;
 			}
 		}
-		$this->current_word = "";
+		$this->current_word = '';
+		$this->current_directive = '';
 		$this->switchState(self::STATE_ZERO_POINT);
 	}
 

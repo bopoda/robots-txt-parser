@@ -16,7 +16,6 @@ class HostTest extends \PHPUnit_Framework_TestCase
 		$parser = new RobotsTxtParser($robotsTxtContent);
 		$rules = $parser->getRules();
 		$this->assertInstanceOf('RobotsTxtParser', $parser);
-		$this->assertObjectHasAttribute('rules', $parser);
 		$this->assertArrayHasKey('*', $rules);
 
 		if ($expectedHost) {

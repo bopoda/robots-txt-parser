@@ -20,7 +20,6 @@ class CleanParamTest extends \PHPUnit_Framework_TestCase
 		$parser = new RobotsTxtParser($robotsTxtContent);
 		$this->assertInstanceOf('RobotsTxtParser', $parser);
 		$rules = $parser->getRules();
-		$this->assertObjectHasAttribute('rules', $parser);
 		$this->assertArrayHasKey('*', $rules);
 		$this->assertArrayHasKey('clean-param', $rules['*']);
 		$this->assertEquals(array('utm_source&utm_medium&utm.campaign'), $rules['*']['clean-param'], $message);
@@ -34,7 +33,6 @@ class CleanParamTest extends \PHPUnit_Framework_TestCase
 		$parser = new RobotsTxtParser($robotsTxtContent);
 		$this->assertInstanceOf('RobotsTxtParser', $parser);
 		$rules = $parser->getRules();
-		$this->assertObjectHasAttribute('rules', $parser);
 		$this->assertArrayHasKey('*', $rules);
 		$this->assertArrayHasKey('clean-param', $rules['*']);
 		$this->assertEquals(array($expectedCleanParamValue), $rules['*']['clean-param']);
