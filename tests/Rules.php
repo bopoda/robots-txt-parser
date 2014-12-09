@@ -10,7 +10,7 @@ class RulesTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @dataProvider generateDataForTest
 	 */
-	public function testGetRules($robotsTxtContent, $expectedRules)
+	public function testGetRules($robotsTxtContent, $expectedRules = array())
 	{
 		// init parser
 		$parser = new RobotsTxtParser($robotsTxtContent);
@@ -70,7 +70,43 @@ class RulesTest extends \PHPUnit_Framework_TestCase
 						),
 					),
 				)
-			)
+			),
+			array("
+					User-agent: Yandex
+					Allow: /archive
+					Disallow: /
+					# разрешает все, что содержит '/archive', остальное запрещено
+
+					User-agent: Yandex
+					Allow: /obsolete/private/*.html$ # разрешает html файлы
+													 # по пути '/obsolete/private/...'
+					Disallow: /*.php$  # запрещает все '*.php' на данном сайте
+					Disallow: /*/private/ # запрещает все подпути содержащие
+										  # '/private/', но Allow выше отменяет
+										  # часть запрета
+					Disallow: /*/old/*.zip$ # запрещает все '*.zip' файлы, содержащие
+											# в пути '/old/'
+
+					User-agent: Yandex
+					Disallow: /add.php?*user=
+					# запрещает все скрипты 'add.php?' с параметром 'user'
+				",
+				'expectedRules' => array(
+					'yandex' => array (
+						'allow' => array(
+							0 => '/archive',
+							1 => '/obsolete/private/*.html$',
+						),
+						'disallow' => array (
+							0 => '/',
+							1 => '/*.php$',
+							2 => '/*/private/',
+							3 => '/*/old/*.zip$',
+							4 => '/add.php?*user=',
+						),
+					),
+				),
+			),
 		);
 	}
 }
