@@ -303,11 +303,11 @@ class RobotsTxtParser
 	private function readValue()
 	{
 		if ($this->newLine()) {
-			$this->addValueToDirective();
+			$this->assignValueToDirective();
 		}
 		elseif ($this->sharp()) {
 			$this->current_word = mb_substr($this->current_word, 0, -1);
-			$this->addValueToDirective();
+			$this->assignValueToDirective();
 		}
 		else {
 			$this->increment();
@@ -315,7 +315,7 @@ class RobotsTxtParser
 		return $this;
 	}
 
-	private function addValueToDirective()
+	private function assignValueToDirective()
 	{
 		if ($this->directiveUserAgent()) {
 			if (empty($this->rules[$this->current_word])) {
@@ -333,7 +333,9 @@ class RobotsTxtParser
 			$this->rules[$this->userAgent][$this->current_directive][] = trim($this->current_word);
 		}
 		elseif ($this->directiveHost()) {
-			$this->rules[$this->userAgent][$this->current_directive] = $this->current_word;
+			if (empty($this->rules['*'][$this->current_directive])) { // save only first host directive value
+				$this->rules['*'][$this->current_directive] = $this->current_word;
+			}
 		}
 		else {
 			if (!empty($this->current_word)) {

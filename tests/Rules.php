@@ -45,12 +45,12 @@ class RulesTest extends \PHPUnit_Framework_TestCase
 						'clean-param' => array(
 							0 => 'param1 /path/file.php',
 						),
+						'host' => 'example.com',
 					),
 					'yahoo' => array(
 						'disallow' => array(
 							0 => '/',
 						),
-						'host' => 'example.com',
 					),
 				)
 			),
@@ -61,11 +61,13 @@ class RulesTest extends \PHPUnit_Framework_TestCase
 					Host: www.example.com
 				",
 				'expectedRules' => array(
+					'*' => array(
+						'host' => 'www.example.com',
+					),
 					'yandex' => array(
 						'clean-param' => array(
 							0 => 'param1&param2 /path/file.php',
 						),
-						'host' => 'www.example.com',
 					),
 				)
 			)
