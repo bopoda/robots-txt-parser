@@ -45,7 +45,7 @@ class RobotsTxtParser
 	private $current_char = '';
 	private $char_index = 0;
 	private $current_directive = '';
-	private $userAgent = "*";
+	private $userAgent = '*';
 
 	/**
 	 * @param  string $content - file content
@@ -333,18 +333,12 @@ class RobotsTxtParser
 			$this->rules[$this->userAgent][$this->current_directive][] = trim($this->current_word);
 		}
 		elseif ($this->directiveHost()) {
-			if (empty($this->rules['*'][$this->current_directive])) { // save only first host directive value
+			if (empty($this->rules['*'][$this->current_directive])) { // save only first host directive value, assign to '*'
 				$this->rules['*'][$this->current_directive] = $this->current_word;
 			}
 		}
 		else {
 			if (!empty($this->current_word)) {
-				if (
-					$this->directiveAllow()
-					|| $this->directiveDisallow()
-				) {
-					$this->current_word = "/" . ltrim($this->current_word, '/');
-				}
 				$this->rules[$this->userAgent][$this->current_directive][] = $this->current_word;
 			}
 		}
