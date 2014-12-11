@@ -166,9 +166,13 @@ class RobotsTxtParser
 	 */
 	private function newLine()
 	{
+		$asciiCode = ord($this->current_char);
+
 		return ($this->current_char == "\n"
-			|| ord($this->current_char) == 13
-			|| ord($this->current_char) == 10
+			|| $asciiCode == 13
+			|| $asciiCode == 10
+			|| $this->current_word == "\r\n"
+			|| $this->current_word == "\n\r"
 		);
 	}
 
