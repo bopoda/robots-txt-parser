@@ -13,6 +13,7 @@
 			<file>tests/Comments.php</file>
 			<file>tests/Rules.php</file>
 			<file>tests/AbsolutePath.php</file>
+			<file>tests/Http.php</file>
 		</testsuite>
 	</testsuites>
 </phpunit>
