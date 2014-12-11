@@ -168,8 +168,7 @@ class RobotsTxtParser
 	{
 		return ($this->current_char == "\n"
 			|| ord($this->current_char) == 13
-			|| $this->current_word == "\r\n"
-			|| $this->current_word == "\n\r"
+			|| ord($this->current_char) == 10
 		);
 	}
 
