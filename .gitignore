@@ -1,2 +1,4 @@
+.*
 !.keepdir
 !.travis.yml
+build/

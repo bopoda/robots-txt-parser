@@ -31,8 +31,10 @@ class HttpTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertNotEmpty($rules);
 		$this->assertArrayHasKey('disallow', $rules);
+		$this->assertArrayHasKey('host', $rules);
 		$this->assertGreaterThan(3, count($rules['disallow']), 'expected more than 3 disallow rules');
 		$this->assertNotEmpty($parser->getRules('mediapartners-google'), 'expected Mediapartners-Google rules');
+		$this->assertEquals('rozetka.com.ua', $rules['host']);
 	}
 
 	private function getRobotsTxtContent($domain)
