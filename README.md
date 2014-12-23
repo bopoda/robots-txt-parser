@@ -1,12 +1,13 @@
 robots-txt-parser
 =================
 
-php class for parse all directives from robots.txt files.
-php класс для парса файлов robots.txt.
+php класс для парса всех директив файла robots.txt.
 
 [![Build Status](https://travis-ci.org/bopoda/robots-txt-parser.svg?branch=master)](https://travis-ci.org/bopoda/robots-txt-parser)
 
-Php class to parse robots.txt rules according to Google & Yandex specifications. Specifications:
+Попробовать [demo](http://robots.jeka.by/) работы класса RobotsTxtParser он-лайн.
+
+Парсинг осуществляется по правилам в соответствии с Google & Yandex спецификациями. Specifications:
 * [Google: Robots.txt Specifications](https://developers.google.com/webmasters/control-crawl-index/docs/robots_txt)
 * [Yandex: Robots.txt Specifications](https://help.yandex.com/webmaster/controlling-robot/robots-txt.xml)
 
