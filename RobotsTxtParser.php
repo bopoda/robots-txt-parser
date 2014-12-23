@@ -60,6 +60,7 @@ class RobotsTxtParser
 
 		// set content
 		$this->content = iconv($encoding, 'UTF-8//IGNORE', $content);
+		$this->content .= "\n";
 
 		// set default state
 		$this->state = self::STATE_ZERO_POINT;
