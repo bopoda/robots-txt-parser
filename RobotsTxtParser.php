@@ -339,6 +339,9 @@ class RobotsTxtParser
 	{
 		if ($this->directiveUserAgent()) {
 			$this->userAgent = trim($this->current_word);
+			if (!isset($this->rules[$this->userAgent])) {
+				$this->rules[$this->userAgent] = array();
+			}
 		}
 		elseif ($this->directiveCrawlDelay()) {
 			$this->rules[$this->userAgent][$this->current_directive] = (double)$this->current_word;
@@ -392,33 +395,6 @@ class RobotsTxtParser
 				$this->readValue();
 				break;
 		}
-	}
-
-	/**
-	 * Convert robots.txt rules to php regex
-	 *
-	 * @link https://developers.google.com/webmasters/control-crawl-index/docs/robots_txt
-	 * @param string $value
-	 * @return string
-	 */
-	private function prepareRegexRule($value)
-	{
-		$value = str_replace('$', '\$', $value);
-		$value = str_replace('?', '\?', $value);
-		$value = str_replace('.', '\.', $value);
-		$value = str_replace('*', '.*', $value);
-
-		if (mb_strlen($value) > 2 && mb_substr($value, -2) == '\$') {
-			$value = substr($value, 0, -2) . '$';
-		}
-
-		if (mb_strrpos($value, '/') == (mb_strlen($value) - 1) ||
-			mb_strrpos($value, '=') == (mb_strlen($value) - 1) ||
-			mb_strrpos($value, '?') == (mb_strlen($value) - 1)
-		) {
-			$value .= '.*';
-		}
-		return $value;
 	}
 
 	/**
