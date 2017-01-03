@@ -75,6 +75,15 @@ class RobotsTxtParser
 		$this->prepareRules();
 	}
 
+	/**
+	 * Get rules by specific bot (user-agent)
+	 * Use $userAgent = NULL to get all rules for all user-agents grouped by user-agent. User-agents will return in lower case.
+	 * Use $userAgent = '*' to get common rules.
+	 * Use $userAgent = 'YandexBot' to get rules for user-agent 'YandexBot'.
+	 *
+	 * @param string $userAgent
+	 * @return array
+	 */
 	public function getRules($userAgent = NULL)
 	{
 		if (is_null($userAgent)) {
@@ -82,6 +91,7 @@ class RobotsTxtParser
 			return $this->rules;
 		}
 		else {
+			$userAgent = mb_strtolower($userAgent);
 			if (isset($this->rules[$userAgent])) {
 				return $this->rules[$userAgent];
 			}
@@ -328,10 +338,7 @@ class RobotsTxtParser
 	private function assignValueToDirective()
 	{
 		if ($this->directiveUserAgent()) {
-			if (empty($this->rules[$this->current_word])) {
-				$this->rules[$this->current_word] = array();
-			}
-			$this->userAgent = $this->current_word;
+			$this->userAgent = trim($this->current_word);
 		}
 		elseif ($this->directiveCrawlDelay()) {
 			$this->rules[$this->userAgent][$this->current_directive] = (double)$this->current_word;
@@ -423,7 +430,7 @@ class RobotsTxtParser
 	{
 		$this->current_char = mb_strtolower(mb_substr($this->content, $this->char_index, 1));
 		$this->current_word .= $this->current_char;
-		if (!$this->directiveCleanParam()) {
+		if (!$this->directiveCleanParam() && !$this->directiveUserAgent()) {
 			$this->current_word = trim($this->current_word);
 		}
 		$this->char_index++;
