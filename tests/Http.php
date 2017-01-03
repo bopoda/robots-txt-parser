@@ -19,7 +19,7 @@ class HttpTest extends \PHPUnit_Framework_TestCase
 		$this->assertNotEmpty($rules);
 		$this->assertArrayHasKey('disallow', $rules);
 		$this->assertGreaterThan(100, count($rules['disallow']), 'expected more than 100 disallow rules');
-		$this->assertGreaterThan(5, count($rules['sitemap']), 'expected more than 5 sitemaps');
+		$this->assertGreaterThan(3, count($rules['sitemap']), 'expected more than 3 sitemaps');
 	}
 
 	public function testRozetkaComUa()

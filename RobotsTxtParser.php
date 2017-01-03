@@ -3,7 +3,7 @@
 /**
  * Class for parsing robots.txt files
  *
- * @author Eugene Yurkevich (yurkevich@vicman.net)
+ * @author Eugene Yurkevich (bopodaa@gmail.com)
  *
  *
  * Some useful links and materials:
@@ -31,6 +31,12 @@ class RobotsTxtParser
 	const DIRECTIVE_CRAWL_DELAY = 'crawl-delay';
 	const DIRECTIVE_CLEAN_PARAM = 'clean-param';
 
+	/**
+	 * Default user-agent
+	 * First off, links should be checked by specific user-agent rules. If specific user-agent isn't specified than default user-agent used.
+	 */
+	const USER_AGENT_ALL = '*';
+
 	// current state
 	private $state = '';
 
@@ -45,7 +51,7 @@ class RobotsTxtParser
 	private $current_char = '';
 	private $char_index = 0;
 	private $current_directive = '';
-	private $userAgent = '*';
+	private $userAgent = self::USER_AGENT_ALL;
 
 	/**
 	 * @param  string $content - file content
@@ -331,7 +337,7 @@ class RobotsTxtParser
 			$this->rules[$this->userAgent][$this->current_directive] = (double)$this->current_word;
 		}
 		elseif ($this->directiveSitemap()) {
-			$this->rules[$this->userAgent][$this->current_directive][] = $this->current_word;
+			$this->rules[self::USER_AGENT_ALL][$this->current_directive][] = $this->current_word;
 		}
 		elseif ($this->directiveCleanParam()) {
 			$this->rules[$this->userAgent][$this->current_directive][] = trim($this->current_word);
