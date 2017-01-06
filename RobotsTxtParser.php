@@ -101,6 +101,22 @@ class RobotsTxtParser
 		}
 	}
 
+	/**
+	 * Get sitemaps links.
+	 * Sitemap always relates to all user-agents and return in rules with user-agent "*"
+	 *
+	 * @return array  all sitemap urls
+	 */
+	public function getSitemaps()
+	{
+		$rules = $this->getRules(self::USER_AGENT_ALL);
+		if (!empty($rules[self::DIRECTIVE_SITEMAP])) {
+			return $rules[self::DIRECTIVE_SITEMAP];
+		}
+
+		return array();
+	}
+
 	public function getContent()
 	{
 		return $this->content;

@@ -27,4 +27,31 @@ class DifferentCasesTest extends \PHPUnit_Framework_TestCase
 		$this->assertArrayHasKey('googlebot', $rules, 'googlebot rules is empty');
 		$this->assertArrayHasKey('cocon.se crawler', $rules, 'cocon.se crawler rules is empty');
 	}
+
+	/**
+	 * https://github.com/bopoda/robots-txt-parser/issues/7
+	 */
+	public function testIssue7()
+	{
+		$robotsTxtContent = "
+				Sitemap: http://example.com/sitemap.xml?year=2016
+				Sitemap: http://example.com/sitemap.xml?year=2016
+				Sitemap: http://example.com/sitemap.xml?year=2016
+				User-agent: *
+				Disallow: /admin/
+				Sitemap: http://somesite.com/sitemap.xml
+				User-agent: Googlebot
+				Sitemap: http://internet.com/sitemap.xml
+				User-agent: Yahoo
+				Sitemap: http://worldwideweb.com/sitemap.xml
+				Sitemap: http://example.com/sitemap.xml?year=2017
+			";
+
+		$parser = new RobotsTxtParser($robotsTxtContent);
+		$this->assertInstanceOf('RobotsTxtParser', $parser);
+
+		$siteMaps = $parser->getSitemaps();
+		$this->assertNotEmpty($siteMaps, 'got empty sitemap list');
+		$this->assertEquals(5, count($siteMaps), 'wrong unique sitemap urls count');
+	}
 }
