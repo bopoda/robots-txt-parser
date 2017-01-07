@@ -54,4 +54,21 @@ class DifferentCasesTest extends \PHPUnit_Framework_TestCase
 		$this->assertNotEmpty($siteMaps, 'got empty sitemap list');
 		$this->assertEquals(5, count($siteMaps), 'wrong unique sitemap urls count');
 	}
+
+	/**
+	 * https://github.com/bopoda/robots-txt-parser/pull/8#issuecomment-270947974
+	 */
+	public function testSitemapsUniqueness()
+	{
+		$robotsTxtContent = "
+			Sitemap: http://example.com/sitemap.xml?year=2017
+			Sitemap: http://example.com/sitemap.xml?year=2017
+			Sitemap: http://example.com/sitemap.xml?year=2017
+		";
+
+		$parser = new RobotsTxtParser($robotsTxtContent);
+		$this->assertInstanceOf('RobotsTxtParser', $parser);
+		// Check if the number of sitemaps is 1
+		$this->assertTrue(count($parser->getSitemaps()) == 1);
+	}
 }
