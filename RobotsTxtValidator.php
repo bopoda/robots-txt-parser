@@ -7,9 +7,15 @@
 class RobotsTxtValidator
 {
 	/**
-	 * @var array
+	 * @var array  Data to determine isUrl Allow/Disallow
 	 */
 	private $orderedDirectives;
+
+	/**
+	 * @var array All rules from RobotsTxtParser
+	 */
+	private $rules;
+
 	/**
 	 * RobotsTxtValidator constructor
 	 *
@@ -17,9 +23,7 @@ class RobotsTxtValidator
 	 */
 	public function __construct(array $rules)
 	{
-		foreach($rules as $userAgent => $rulesByUserAgent) {
-			$this->orderedDirectives[$userAgent] = $this->orderDirectives($rules[$userAgent]);
-		}
+		$this->rules = $rules;
 	}
 
 	/**
@@ -33,9 +37,11 @@ class RobotsTxtValidator
 	{
 		$relativeUrl = $this->getRelativeUrl($url);
 
+		$orderedDirectives = $this->getOrderedDirectivesByUserAgent($userAgent);
+
 		// if has not allow rules we can determine when url disallowed even on one coincidence - just to do it faster.
 		$hasAllowDirectives = true;
-		foreach ($this->orderedDirectives[$userAgent] as $directiveRow) {			
+		foreach ($orderedDirectives as $directiveRow) {
 			if ($directiveRow['directive'] == 'allow' ) {
 				$hasAllowDirectives = true;
 				break;
@@ -43,7 +49,7 @@ class RobotsTxtValidator
 		}
 
 		$isAllow = true;
-		foreach ($this->orderedDirectives[$userAgent] as $directiveRow) {			
+		foreach ($orderedDirectives as $directiveRow) {
 			if (!in_array($directiveRow['directive'], array('allow', 'disallow'))) {
 				continue;
 			}
@@ -87,11 +93,17 @@ class RobotsTxtValidator
 	 */
 	private function getOrderedDirectivesByUserAgent($userAgent)
 	{
-		if (!empty($this->rules[$userAgent])) {
-			return $this->orderDirectives($this->rules[$userAgent]);
+		if (!isset($this->orderedDirectives[$userAgent])) {
+			if (!empty($this->rules[$userAgent])) {
+				//put data to execution cache
+				$this->orderedDirectives[$userAgent] = $this->orderDirectives($this->rules[$userAgent]);
+			}
+			else {
+				$this->orderedDirectives[$userAgent] = array();
+			}
 		}
 
-		return array();
+		return $this->orderedDirectives[$userAgent];
 	}
 
 	/**
