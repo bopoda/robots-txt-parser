@@ -7,9 +7,9 @@
 class RobotsTxtValidator
 {
 	/**
-	 * @var array  Data to determine isUrl Allow/Disallow
+	 * @var array  Data with ordered rules to determine isUrl Allow/Disallow
 	 */
-	private $orderedDirectives;
+	private $orderedDirectivesCache;
 
 	/**
 	 * @var array All rules from RobotsTxtParser
@@ -93,17 +93,17 @@ class RobotsTxtValidator
 	 */
 	private function getOrderedDirectivesByUserAgent($userAgent)
 	{
-		if (!isset($this->orderedDirectives[$userAgent])) {
+		if (!isset($this->orderedDirectivesCache[$userAgent])) {
 			if (!empty($this->rules[$userAgent])) {
 				//put data to execution cache
-				$this->orderedDirectives[$userAgent] = $this->orderDirectives($this->rules[$userAgent]);
+				$this->orderedDirectivesCache[$userAgent] = $this->orderDirectives($this->rules[$userAgent]);
 			}
 			else {
-				$this->orderedDirectives[$userAgent] = array();
+				$this->orderedDirectivesCache[$userAgent] = array();
 			}
 		}
 
-		return $this->orderedDirectives[$userAgent];
+		return $this->orderedDirectivesCache[$userAgent];
 	}
 
 	/**
