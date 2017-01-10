@@ -7,7 +7,12 @@
 class RobotsTxtValidator
 {
 	/**
-	 * @var array
+	 * @var array  Data with ordered rules to determine isUrl Allow/Disallow
+	 */
+	private $orderedDirectivesCache;
+
+	/**
+	 * @var array All rules from RobotsTxtParser
 	 */
 	private $rules;
 
@@ -31,6 +36,7 @@ class RobotsTxtValidator
 	public function isUrlAllow($url, $userAgent = '*')
 	{
 		$relativeUrl = $this->getRelativeUrl($url);
+
 		$orderedDirectives = $this->getOrderedDirectivesByUserAgent($userAgent);
 
 		// if has not allow rules we can determine when url disallowed even on one coincidence - just to do it faster.
@@ -87,11 +93,17 @@ class RobotsTxtValidator
 	 */
 	private function getOrderedDirectivesByUserAgent($userAgent)
 	{
-		if (!empty($this->rules[$userAgent])) {
-			return $this->orderDirectives($this->rules[$userAgent]);
+		if (!isset($this->orderedDirectivesCache[$userAgent])) {
+			if (!empty($this->rules[$userAgent])) {
+				//put data to execution cache
+				$this->orderedDirectivesCache[$userAgent] = $this->orderDirectives($this->rules[$userAgent]);
+			}
+			else {
+				$this->orderedDirectivesCache[$userAgent] = array();
+			}
 		}
 
-		return array();
+		return $this->orderedDirectivesCache[$userAgent];
 	}
 
 	/**

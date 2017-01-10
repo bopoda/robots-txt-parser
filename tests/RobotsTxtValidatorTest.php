@@ -11,6 +11,8 @@ class RobotsTxtValidatorTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * Check is url allow for user-agent *
+	 *
 	 * @dataProvider isUrlAllowRulesWithUrlsProvider
 	 *
 	 * @param array $rules  Rules "as is" from RobotsTxtParser
@@ -32,15 +34,21 @@ class RobotsTxtValidatorTest extends \PHPUnit_Framework_TestCase
 	{
 		return array(
 			array(
-				array (
-					'*' => array(
+				array(
+				),
+				'/url',
+				true
+			),
+			array(
+				array(
+					'googleBot' => array(
 						'disallow' => array(
-							'/',
+							'/url'
 						),
 					),
 				),
 				'/url',
-				false
+				true
 			),
 			array(
 				array (
@@ -101,7 +109,7 @@ class RobotsTxtValidatorTest extends \PHPUnit_Framework_TestCase
 				false
 			),
 			array(
-				array (
+				array(
 					'*' => array(
 						'allow' => array(
 							'/url/specificPath',
