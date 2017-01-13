@@ -255,7 +255,7 @@ class RobotsTxtParser
 	 */
 	private function shouldSwitchToZeroPoint()
 	{
-		return in_array($this->current_word, array(
+		return in_array(strtolower($this->current_word), array(
 			self::DIRECTIVE_ALLOW,
 			self::DIRECTIVE_DISALLOW,
 			self::DIRECTIVE_HOST,
@@ -291,7 +291,7 @@ class RobotsTxtParser
 	 */
 	private function readDirective()
 	{
-		$this->current_directive = mb_strtolower(trim($this->current_word));
+		$this->current_directive = strtolower(trim($this->current_word));
 
 		$this->increment();
 
@@ -354,7 +354,7 @@ class RobotsTxtParser
 	private function assignValueToDirective()
 	{
 		if ($this->directiveUserAgent()) {
-			$this->userAgent = trim($this->current_word);
+			$this->userAgent = mb_strtolower(trim($this->current_word));
 			if (!isset($this->rules[$this->userAgent])) {
 				$this->rules[$this->userAgent] = array();
 			}
@@ -420,7 +420,7 @@ class RobotsTxtParser
 	 */
 	private function increment()
 	{
-		$this->current_char = mb_strtolower(mb_substr($this->content, $this->char_index, 1));
+		$this->current_char = mb_substr($this->content, $this->char_index, 1);
 		$this->current_word .= $this->current_char;
 		if (!$this->directiveCleanParam() && !$this->directiveUserAgent()) {
 			$this->current_word = trim($this->current_word);
