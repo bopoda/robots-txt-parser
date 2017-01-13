@@ -17,6 +17,7 @@
 			<file>tests/DifferentCases.php</file>
 			<file>tests/RobotsTxtValidatorTest.php</file>
 			<file>tests/CommonTest.php</file>
+			<file>tests/TyposDirectiveTest.php</file>
 		</testsuite>
 	</testsuites>
 </phpunit>
