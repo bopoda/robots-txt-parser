@@ -191,7 +191,7 @@ class RobotsTxtValidator
 
 		$ruleValue = preg_replace(array_keys($replacements), array_values($replacements), $ruleValue);
 
-		$regexp = '/^' . str_replace('/', '\/', $ruleValue) . '/i';
+		$regexp = '/^' . str_replace('/', '\/', $ruleValue) . '/';
 		return str_replace('\\\\/', '\/', $regexp);
 	}
 }
