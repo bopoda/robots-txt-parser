@@ -30,7 +30,8 @@ class RobotsTxtParser
 	const DIRECTIVE_USERAGENT = 'user-agent';
 	const DIRECTIVE_CRAWL_DELAY = 'crawl-delay';
 	const DIRECTIVE_CLEAN_PARAM = 'clean-param';
-
+	const DIRECTIVE_NOINDEX = 'noindex';
+	
 	/**
 	 * Default user-agent
 	 * First off, links should be checked by specific user-agent rules. If specific user-agent isn't specified than default user-agent used.
@@ -187,6 +188,14 @@ class RobotsTxtParser
 	}
 
 	/**
+	 * Crawl-Delay directive signal
+	 */
+	private function directiveNoIndex()
+	{
+		return ($this->current_directive == self::DIRECTIVE_NOINDEX);
+	}
+
+	/**
 	 * Key : value pair separator signal
 	 */
 	private function lineSeparator()
@@ -263,6 +272,7 @@ class RobotsTxtParser
 			self::DIRECTIVE_SITEMAP,
 			self::DIRECTIVE_CRAWL_DELAY,
 			self::DIRECTIVE_CLEAN_PARAM,
+			self::DIRECTIVE_NOINDEX,			
 		), true);
 	}
 
@@ -372,6 +382,9 @@ class RobotsTxtParser
 			if (empty($this->rules['*'][$this->current_directive])) { // save only first host directive value, assign to '*'
 				$this->rules['*'][$this->current_directive] = $this->current_word;
 			}
+		} 
+		elseif ($this->directiveNoIndex()) {
+			$this->rules[$this->userAgent][$this->current_directive][] = trim($this->current_word);
 		}
 		else {
 			if (!empty($this->current_word)) {
