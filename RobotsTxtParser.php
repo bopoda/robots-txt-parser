@@ -23,6 +23,7 @@ class RobotsTxtParser
 	const STATE_READ_VALUE = 'read-value';
 
 	// directives
+	const DIRECTIVE_NOINDEX = 'noindex';	
 	const DIRECTIVE_ALLOW = 'allow';
 	const DIRECTIVE_DISALLOW = 'disallow';
 	const DIRECTIVE_HOST = 'host';
@@ -30,7 +31,6 @@ class RobotsTxtParser
 	const DIRECTIVE_USERAGENT = 'user-agent';
 	const DIRECTIVE_CRAWL_DELAY = 'crawl-delay';
 	const DIRECTIVE_CLEAN_PARAM = 'clean-param';
-	const DIRECTIVE_NOINDEX = 'noindex';
 	
 	/**
 	 * Default user-agent
@@ -124,6 +124,14 @@ class RobotsTxtParser
 	}
 
 	/**
+	 * NoIndex directive signal
+	 */
+	private function directiveNoIndex()
+	{
+		return ($this->current_directive == self::DIRECTIVE_NOINDEX);
+	}
+
+	/**
 	 * Comment signal (#)
 	 */
 	private function sharp()
@@ -185,14 +193,6 @@ class RobotsTxtParser
 	private function directiveCrawlDelay()
 	{
 		return ($this->current_directive == self::DIRECTIVE_CRAWL_DELAY);
-	}
-
-	/**
-	 * Crawl-Delay directive signal
-	 */
-	private function directiveNoIndex()
-	{
-		return ($this->current_directive == self::DIRECTIVE_NOINDEX);
 	}
 
 	/**
@@ -265,14 +265,14 @@ class RobotsTxtParser
 	private function shouldSwitchToZeroPoint()
 	{
 		return in_array($this->current_word, array(
+			self::DIRECTIVE_NOINDEX,			
 			self::DIRECTIVE_ALLOW,
 			self::DIRECTIVE_DISALLOW,
 			self::DIRECTIVE_HOST,
 			self::DIRECTIVE_USERAGENT,
 			self::DIRECTIVE_SITEMAP,
 			self::DIRECTIVE_CRAWL_DELAY,
-			self::DIRECTIVE_CLEAN_PARAM,
-			self::DIRECTIVE_NOINDEX,			
+			self::DIRECTIVE_CLEAN_PARAM,			
 		), true);
 	}
 

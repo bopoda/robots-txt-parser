@@ -5,7 +5,6 @@
 	</logging>
 	<testsuites>
 		<testsuite name="">
-			<file>tests/NoIndex.php</file>
 			<file>tests/CrawlDelay.php</file>
 			<file>tests/EmptyDisallow.php</file>
 			<file>tests/Host.php</file>
@@ -17,6 +16,7 @@
 			<file>tests/Http.php</file>
 			<file>tests/DifferentCases.php</file>
 			<file>tests/RobotsTxtValidatorTest.php</file>
+			<file>tests/NoIndex.php</file>			
 		</testsuite>
 	</testsuites>
 </phpunit>

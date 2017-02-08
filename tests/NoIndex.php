@@ -32,10 +32,10 @@ class NoIndexTest extends \PHPUnit_Framework_TestCase
 	{
 		return array(
 			array("
-User-agent: *
-    Noindex: /page-a.html
-    Noindex: /article-*
-			")
+ 					User-agent: *
+    					Noindex: /page-a.html
+    					Noindex: /article-*
+				  ")
 		);
 	}
 }
