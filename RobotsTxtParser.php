@@ -264,7 +264,7 @@ class RobotsTxtParser
 	 */
 	private function shouldSwitchToZeroPoint()
 	{
-		return in_array($this->current_word, array(
+		return in_array(strtolower($this->current_word), array(
 			self::DIRECTIVE_NOINDEX,			
 			self::DIRECTIVE_ALLOW,
 			self::DIRECTIVE_DISALLOW,
