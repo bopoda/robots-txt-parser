@@ -23,6 +23,7 @@ class RobotsTxtParser
 	const STATE_READ_VALUE = 'read-value';
 
 	// directives
+	const DIRECTIVE_NOINDEX = 'noindex';	
 	const DIRECTIVE_ALLOW = 'allow';
 	const DIRECTIVE_DISALLOW = 'disallow';
 	const DIRECTIVE_HOST = 'host';
@@ -30,7 +31,7 @@ class RobotsTxtParser
 	const DIRECTIVE_USERAGENT = 'user-agent';
 	const DIRECTIVE_CRAWL_DELAY = 'crawl-delay';
 	const DIRECTIVE_CLEAN_PARAM = 'clean-param';
-
+	
 	/**
 	 * Default user-agent
 	 * First off, links should be checked by specific user-agent rules. If specific user-agent isn't specified than default user-agent used.
@@ -120,6 +121,14 @@ class RobotsTxtParser
 	public function getContent()
 	{
 		return $this->content;
+	}
+
+	/**
+	 * NoIndex directive signal
+	 */
+	private function directiveNoIndex()
+	{
+		return ($this->current_directive == self::DIRECTIVE_NOINDEX);
 	}
 
 	/**
@@ -256,13 +265,14 @@ class RobotsTxtParser
 	private function shouldSwitchToZeroPoint()
 	{
 		return in_array(strtolower($this->current_word), array(
+			self::DIRECTIVE_NOINDEX,			
 			self::DIRECTIVE_ALLOW,
 			self::DIRECTIVE_DISALLOW,
 			self::DIRECTIVE_HOST,
 			self::DIRECTIVE_USERAGENT,
 			self::DIRECTIVE_SITEMAP,
 			self::DIRECTIVE_CRAWL_DELAY,
-			self::DIRECTIVE_CLEAN_PARAM,
+			self::DIRECTIVE_CLEAN_PARAM,			
 		), true);
 	}
 
@@ -372,6 +382,9 @@ class RobotsTxtParser
 			if (empty($this->rules['*'][$this->current_directive])) { // save only first host directive value, assign to '*'
 				$this->rules['*'][$this->current_directive] = $this->current_word;
 			}
+		} 
+		elseif ($this->directiveNoIndex()) {
+			$this->rules[$this->userAgent][$this->current_directive][] = trim($this->current_word);
 		}
 		else {
 			if (!empty($this->current_word)) {
