@@ -171,7 +171,9 @@ class RobotsTxtValidator
 			}
 		}
 
-		return parse_url($url, PHP_URL_PATH);
+		$parsedUrl = parse_url($url);
+		return ((isset($parsedUrl['path']) ? "{$parsedUrl['path']}" : '') . 
+                (isset($parsedUrl['query']) ? "?{$parsedUrl['query']}" : ''));
 	}
 
 	/**

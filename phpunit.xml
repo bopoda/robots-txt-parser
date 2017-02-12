@@ -5,6 +5,7 @@
 	</logging>
 	<testsuites>
 		<testsuite name="">
+			<file>tests/RelativePath.php</file>		
 			<file>tests/CrawlDelay.php</file>
 			<file>tests/EmptyDisallow.php</file>
 			<file>tests/Host.php</file>
