@@ -62,11 +62,13 @@ class RobotsTxtParser
 	public function __construct($content, $encoding = self::DEFAULT_ENCODING)
 	{
 		// convert encoding
-		$encoding = !empty($encoding) ? $encoding : mb_detect_encoding($content);
-		mb_internal_encoding($encoding);
-
+		$encoding = !empty($encoding) ? $encoding : mb_detect_encoding($content, mb_detect_order(), false);
+        	if($encoding == "UTF-8")
+        	{
+            		$content = mb_convert_encoding($content, 'UTF-8', 'UTF-8');    
+        	}
 		// set content
-		$this->content = iconv($encoding, 'UTF-8//IGNORE', $content);
+        	$this->content = iconv(mb_detect_encoding($content, mb_detect_order(), false), "UTF-8//IGNORE", $content);
 		$this->content .= "\n";
 
 		// set default state
