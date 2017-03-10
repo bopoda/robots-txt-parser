@@ -38,6 +38,8 @@ class RobotsTxtValidator
 		$relativeUrl = $this->getRelativeUrl($url);
 
 		$orderedDirectives = $this->getOrderedDirectivesByUserAgent($userAgent);
+		// if find no directive for particular User Agent then find for all '*' 
+		if (count($orderedDirectives) == 0 && $userAgent != '*') { $orderedDirectives = $this->getOrderedDirectivesByUserAgent('*'); }
 
 		// if has not allow rules we can determine when url disallowed even on one coincidence - just to do it faster.
 		$hasAllowDirectives = true;
