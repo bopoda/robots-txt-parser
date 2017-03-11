@@ -1,0 +1,13 @@
+User-Agent: *
+Disallow: /bd/
+Disallow: /fonts/
+Disallow: /include/
+Disallow: /includebalade/
+Disallow: /utils/
+Disallow: /bckoffice/
+Disallow: /objpagecache/
+Disallow: /*%C3
+Disallow: /*Ã
+Disallow: /*é
+Disallow: /*â
+Disallow: /*è

@@ -37,6 +37,30 @@ class HttpTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals('rozetka.com.ua', $rules['host']);
 	}
 
+	/**
+	 * @dataProvider InvalidEncodingDomains
+	 */
+	public function testInvalidEncodingDomains($domain)
+	{
+		$robotsTxtContent = $this->getRobotsTxtContent($domain);
+
+		$parser = new RobotsTxtParser($robotsTxtContent);
+		$rules = $parser->getRules();
+
+		$this->assertNotEmpty($rules, 'got empty rules from ' . $domain . '/robots.txt. It seems problems with encoding or robots.txt was changed');
+	}
+
+	/**
+	 * @return array
+	 */
+	public function InvalidEncodingDomains()
+	{
+		return array(
+			array('dcga.fr'),
+			array('recoin.fr'),
+		);
+	}
+
 	private function getRobotsTxtContent($domain)
 	{
 		$robotsTxtContent = @file_get_contents("http://$domain/robots.txt");
