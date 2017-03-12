@@ -63,8 +63,7 @@ class RobotsTxtParser
 	{
 		// convert encoding
 		$encoding = !empty($encoding) ? $encoding : mb_detect_encoding($content, mb_detect_order(), false);
-        	if($encoding == "UTF-8")
-        	{
+        	if ($encoding == "UTF-8") {
             		$content = mb_convert_encoding($content, 'UTF-8', 'UTF-8');    
         	}
 		// set content
