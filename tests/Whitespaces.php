@@ -1,6 +1,6 @@
 <?php
 
-class WhitespacesTest extends \PHPUnit_Framework_TestCase
+class WhitespacesTest extends \PHPUnit\Framework\TestCase
 {
 	/**
 	 * Load library
