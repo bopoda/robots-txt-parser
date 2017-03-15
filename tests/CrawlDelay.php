@@ -1,6 +1,6 @@
 <?php
 
-class CrawlDelayTest extends \PHPUnit_Framework_TestCase
+class CrawlDelayTest extends \PHPUnit\Framework\TestCase
 {
 	/**
 	 * Load library

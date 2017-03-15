@@ -1,6 +1,6 @@
 <?php
 
-class CommentsTest extends \PHPUnit_Framework_TestCase
+class CommentsTest extends \PHPUnit\Framework\TestCase
 {
 	public static function setUpBeforeClass()
 	{

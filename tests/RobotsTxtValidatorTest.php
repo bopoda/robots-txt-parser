@@ -1,6 +1,6 @@
 <?php
 
-class RobotsTxtValidatorTest extends \PHPUnit_Framework_TestCase
+class RobotsTxtValidatorTest extends \PHPUnit\Framework\TestCase
 {
 	/**
 	 * Load library
