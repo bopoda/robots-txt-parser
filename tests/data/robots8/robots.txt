@@ -1,0 +1,4 @@
+# robots.txt for http://www.dcga.fr/
+User-agent: * # S'adresse à tous les moteurs de recherche
+Disallow: /Fiche_renseign_progest/ # Interdiction d'accès à un répertoire déterminé
+Disallow: /intranet_dcga/ # Interdiction d'accès à un répertoire déterminé
