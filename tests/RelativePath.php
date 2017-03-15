@@ -1,6 +1,6 @@
 <?php
 
-class RelativePathTest extends \PHPUnit_Framework_TestCase
+class RelativePathTest extends \PHPUnit\Framework\TestCase
 {
 	/**
 	 * Load library

@@ -1,6 +1,6 @@
 <?php
 
-class HostTest extends \PHPUnit_Framework_TestCase
+class HostTest extends \PHPUnit\Framework\TestCase
 {
 	public static function setUpBeforeClass()
 	{

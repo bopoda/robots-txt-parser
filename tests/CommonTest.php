@@ -1,6 +1,6 @@
 <?php
 
-class CommonTest extends \PHPUnit_Framework_TestCase
+class CommonTest extends \PHPUnit\Framework\TestCase
 {
 	/**
 	 * Load library

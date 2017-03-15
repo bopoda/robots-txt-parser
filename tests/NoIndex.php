@@ -1,6 +1,6 @@
 <?php
 
-class NoIndexTest extends \PHPUnit_Framework_TestCase
+class NoIndexTest extends \PHPUnit\Framework\TestCase
 {
 	/**
 	 * Load library

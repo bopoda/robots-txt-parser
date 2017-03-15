@@ -1,6 +1,6 @@
 <?php
 
-class TyposDirectiveTest extends \PHPUnit_Framework_TestCase
+class TyposDirectiveTest extends \PHPUnit\Framework\TestCase
 {
 	public static function setUpBeforeClass()
 	{
