@@ -26,6 +26,20 @@ class RobotsTxtValidatorTest extends \PHPUnit\Framework\TestCase
 	}
 
 	/**
+	 * @dataProvider IsUrlAllowWithSpecificUserAgentProvider
+	 *
+	 * @param array $rules  Rules "as is" from RobotsTxtParser
+	 * @param string $url  Url to check is allowed
+	 * @param string $userAgent  Useragent which used to check is Url allow
+	 * @param boolean $isAllowedExpected
+	 */
+	public function testIsUrlAllowWithSpecificUserAgent(array $rules, $url, $userAgent, $isAllowedExpected)
+	{
+		$robotsTxtValidator = new RobotsTxtValidator($rules);
+		$this->assertEquals($isAllowedExpected, $robotsTxtValidator->isUrlAllow($url, $userAgent));
+	}
+
+	/**
 	 * Generate test case data
 	 *
 	 * @return array
@@ -121,6 +135,29 @@ class RobotsTxtValidatorTest extends \PHPUnit\Framework\TestCase
 				),
 				'/url/specificPath',
 				true
+			),
+		);
+	}
+
+	/**
+	 * Generate test case data
+	 *
+	 * @return array
+	 */
+	public function IsUrlAllowWithSpecificUserAgentProvider()
+	{
+		return array(
+			array(
+				array(
+					'*' => array(
+						'disallow' => array(
+							'/fr/'
+						),
+					),
+				),
+				'/fr/page2',
+				'MyUserAgent',
+				false
 			),
 		);
 	}
