@@ -5,19 +5,19 @@
 	</logging>
 	<testsuites>
 		<testsuite name="">
-			<file>tests/RelativePath.php</file>		
-			<file>tests/CrawlDelay.php</file>
-			<file>tests/EmptyDisallow.php</file>
-			<file>tests/Host.php</file>
-			<file>tests/CleanParam.php</file>
-			<file>tests/Whitespaces.php</file>
-			<file>tests/Comments.php</file>
-			<file>tests/Rules.php</file>
-			<file>tests/AbsolutePath.php</file>
-			<file>tests/Http.php</file>
-			<file>tests/DifferentCases.php</file>
+			<file>tests/RelativePathTest.php</file>
+			<file>tests/CrawlDelayTest.php</file>
+			<file>tests/EmptyDisallowTest.php</file>
+			<file>tests/HostTest.php</file>
+			<file>tests/CleanParamTest.php</file>
+			<file>tests/WhitespacesTest.php</file>
+			<file>tests/CommentsTest.php</file>
+			<file>tests/RulesTest.php</file>
+			<file>tests/AbsolutePathTest.php</file>
+			<file>tests/HttpTest.php</file>
+			<file>tests/DifferentCasesTest.php</file>
 			<file>tests/RobotsTxtValidatorTest.php</file>
-			<file>tests/NoIndex.php</file>			
+			<file>tests/NoIndexTest.php</file>
 			<file>tests/CommonTest.php</file>
 			<file>tests/TyposDirectiveTest.php</file>
 		</testsuite>
