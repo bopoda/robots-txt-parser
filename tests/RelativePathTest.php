@@ -8,7 +8,7 @@ class RelativePathTest extends \PHPUnit\Framework\TestCase
 	public static function setUpBeforeClass()
 	{
 		require_once(realpath(__DIR__.'/../RobotsTxtParser.php'));
-		require_once(realpath(__DIR__.'/../RobotsTxtValidator.php'));		
+		require_once(realpath(__DIR__.'/../RobotsTxtValidator.php'));
 	}
 
 	/**
@@ -47,6 +47,6 @@ User-agent: *
 User-agent: *
 	Disallow: /*/?replytocom=*
 				  ")
-		);		
+		);
 	}
 }

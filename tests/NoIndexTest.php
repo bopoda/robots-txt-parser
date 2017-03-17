@@ -21,7 +21,7 @@ class NoIndexTest extends \PHPUnit\Framework\TestCase
 		$rules = $parser->getRules();
 		$this->assertArrayHasKey('*', $rules);
 		$this->assertArrayHasKey('noindex', $rules['*']);
-		$this->assertEquals(2, count($rules['*']['noindex']), 'wrong noindex directive count');		
+		$this->assertEquals(2, count($rules['*']['noindex']), 'wrong noindex directive count');
 	}
 
 	/**
@@ -32,10 +32,10 @@ class NoIndexTest extends \PHPUnit\Framework\TestCase
 	{
 		return array(
 			array("
- 					User-agent: *
-    					Noindex: /page-a.html
-    					Noindex: /article-*
-				  ")
+					User-agent: *
+						Noindex: /page-a.html
+						Noindex: /article-*
+			")
 		);
 	}
 }
