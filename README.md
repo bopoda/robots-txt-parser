@@ -18,6 +18,8 @@ php класс для парса всех директив файла robots.txt
 <li>улучшение парса host - межсекционная директива, должна относиться к user-agent '*'; при наличи нескольких host поисковики берут значение первой</li>
 <li>из класса удалены неиспользуеме методы, сделан рафакторинг, исправлена область видимости свойств класса</li>
 <li>добавлено больше тестовых кейсов, а также тестовые кейсы добавлены на весь новый функционал</li>
+<li>добавлен класс RobotsTxtValidator для проверки разрешён ли url к парсингу</li>
+<li>с версией 2.0 очень значительно увеличено быстродействие RobotsTxtParser</li>
 </ol>
 
 
@@ -29,6 +31,7 @@ php класс для парса всех директив файла robots.txt
 * DIRECTIVE_USERAGENT = 'user-agent';
 * DIRECTIVE_CRAWL_DELAY = 'crawl-delay';
 * DIRECTIVE_CLEAN_PARAM = 'clean-param';
+* DIRECTIVE_NOINDEX = 'noindex';
 
 ### Usage example
 ```php
@@ -79,3 +82,6 @@ array(2) {
   }
 }
 ```
+
+Please use [v2.0](https://github.com/bopoda/robots-txt-parser/releases/tag/2.0)+ (the latest master)
+which works by same rules but is more highly performance.
