@@ -158,10 +158,10 @@ class RobotsTxtParser
 			$this->handleDirective($directive, $value);
 		}
 
-		$this->removeDublicates();
+		$this->removeDuplicates();
 	}
 
-	private function removeDublicates()
+	private function removeDuplicates()
 	{
 		foreach ($this->rules as $userAgent => $rules) {
 			foreach ($this->rules[$userAgent] as $directive => $value) {
