@@ -20,6 +20,7 @@
 			<file>tests/NoIndexTest.php</file>
 			<file>tests/CommonTest.php</file>
 			<file>tests/TyposDirectiveTest.php</file>
+			<file>tests/t1gorTest.php</file>
 		</testsuite>
 	</testsuites>
 </phpunit>
