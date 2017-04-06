@@ -94,7 +94,8 @@ $validator = new RobotsTxtValidator($parser->getRules());
 
 $url = '/';
 $userAgent = 'MyAwesomeBot';
-if($validator->isUrlAllow($url, $userAgent)){
+
+if ($validator->isUrlAllow($url, $userAgent)) {
     // Crawl the site URL and do nice stuff
 }
 ```
