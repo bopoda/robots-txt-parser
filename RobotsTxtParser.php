@@ -43,9 +43,9 @@ class RobotsTxtParser
 	private $currentDirective;
 
 	/**
-	 * @var string $userAgent  Current user-agent
+	 * @var array $userAgentsBuffer  Buffer of current user-agents
 	 */
-	private $userAgent;
+	private $userAgentsBuffer = [];
 
 	/**
 	 * @param string $content  Robots.txt content
@@ -155,12 +155,20 @@ class RobotsTxtParser
 			$directive = trim(strtolower($parts[0]));
 			$value = trim($parts[1]);
 
+			if (!in_array($directive, $this->getAllowedDirectives()) || !$value) {
+				continue;
+			}
+
 			$this->handleDirective($directive, $value);
 		}
 
 		$this->removeDuplicates();
 	}
 
+	/**
+	 * Remove duplicates rules
+	 * @return void
+	 */
 	private function removeDuplicates()
 	{
 		foreach ($this->rules as $userAgent => $rules) {
@@ -178,20 +186,22 @@ class RobotsTxtParser
 	 *
 	 * @param string $directive
 	 * @param string $value
+	 * @return void
 	 */
 	private function handleDirective($directive, $value)
 	{
-		if (!in_array($directive, $this->getAllowedDirectives())) {
-			return;
-		}
-
 		switch ($directive) {
 			case self::DIRECTIVE_USERAGENT:
-				$this->currentDirective = $directive;
-				$this->userAgent = strtolower($value);
+				if ($this->currentDirective != self::DIRECTIVE_USERAGENT) {
+					$this->userAgentsBuffer = [];
+				}
 
-				if (!isset($this->rules[$this->userAgent])) {
-					$this->rules[$this->userAgent] = [];
+				$userAgent = strtolower($value);
+				$this->userAgentsBuffer[] = $userAgent;
+				$this->currentDirective = $directive;
+
+				if (!isset($this->rules[$userAgent])) {
+					$this->rules[$userAgent] = [];
 				}
 
 				break;
@@ -199,16 +209,16 @@ class RobotsTxtParser
 			case self::DIRECTIVE_DISALLOW:
 				$this->currentDirective = $directive;
 
-				if ($this->userAgent && $value) {
-					$this->rules[$this->userAgent][self::DIRECTIVE_DISALLOW][] = $value;
+				foreach ($this->userAgentsBuffer as $userAgent) {
+					$this->rules[$userAgent][self::DIRECTIVE_DISALLOW][] = $value;
 				}
 
 				break;
 			case self::DIRECTIVE_CRAWL_DELAY:
 				$this->currentDirective = $directive;
 
-				if ($this->userAgent && $value) {
-					$this->rules[$this->userAgent][self::DIRECTIVE_CRAWL_DELAY] = (double) $value;
+				foreach ($this->userAgentsBuffer as $userAgent) {
+					$this->rules[$userAgent][self::DIRECTIVE_CRAWL_DELAY] = (double)$value;
 				}
 
 				break;
@@ -216,16 +226,14 @@ class RobotsTxtParser
 			case self::DIRECTIVE_SITEMAP:
 				$this->currentDirective = $directive;
 
-				if ($value) {
-					$this->rules[self::USER_AGENT_ALL][self::DIRECTIVE_SITEMAP][] = $value;
-				}
+				$this->rules[self::USER_AGENT_ALL][self::DIRECTIVE_SITEMAP][] = $value;
 
 				break;
 
 			case self::DIRECTIVE_HOST:
 				$this->currentDirective = $directive;
 
-				if ($value && empty($this->rules[self::USER_AGENT_ALL][self::DIRECTIVE_HOST])) {
+				if (empty($this->rules[self::USER_AGENT_ALL][self::DIRECTIVE_HOST])) {
 					$this->rules[self::USER_AGENT_ALL][self::DIRECTIVE_HOST] = $value;
 				}
 
@@ -234,8 +242,8 @@ class RobotsTxtParser
 			default:
 				$this->currentDirective = $directive;
 
-				if (!empty($this->userAgent)) {
-					$this->rules[$this->userAgent][$this->currentDirective][] = $value;
+				foreach ($this->userAgentsBuffer as $userAgent) {
+					$this->rules[$userAgent][$this->currentDirective][] = $value;
 				}
 
 				break;
