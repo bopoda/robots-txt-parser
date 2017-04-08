@@ -22,6 +22,7 @@
 			<file>tests/TyposDirectiveTest.php</file>
 			<file>tests/t1gorTest.php</file>
 			<file>tests/MultipleUserAgentsRulesTest.php</file>
+			<file>tests/Issue13Test.php</file>
 		</testsuite>
 	</testsuites>
 </phpunit>
