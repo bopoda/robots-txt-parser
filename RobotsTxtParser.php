@@ -9,6 +9,10 @@
  * @link https://developers.google.com/webmasters/control-crawl-index/docs/robots_txt
  * @link https://help.yandex.com/webmaster/controlling-robot/robots-txt.xml
  */
+
+// Strip invalid characters from UTF-8 strings
+ini_set('mbstring.substitute_character', "none");
+
 class RobotsTxtParser
 {
 	// default encoding
@@ -54,16 +58,14 @@ class RobotsTxtParser
 	 */
 	public function __construct($content, $encoding = self::DEFAULT_ENCODING)
 	{
-		// convert encoding
-		$encoding = !empty($encoding) ? $encoding : mb_detect_encoding($content, mb_detect_order(), false);
-		if ($encoding == "UTF-8") {
-			$content = mb_convert_encoding($content, 'UTF-8', 'UTF-8');
-		}
-		// set content
-		$this->content = iconv(mb_detect_encoding($content, mb_detect_order(), false), "UTF-8//IGNORE", $content);
+   		// convert encoding
+   		$encoding = !empty($encoding) ? $encoding : mb_detect_encoding($content, mb_detect_order(), false);
 
-		$this->prepareRules();
-	}
+   		// set content
+   		$this->content = mb_convert_encoding($content, 'UTF-8', $encoding);
+
+   		$this->prepareRules();
+	} 
 
 	/**
 	 * Get rules by specific bot (user-agent)
