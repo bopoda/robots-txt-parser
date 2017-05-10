@@ -20,7 +20,7 @@ Parsing is carried out according to the rules in accordance with Google & Yandex
 <li>The improvement of the Parse of Host — the intersection directive, should refer to the user-agent '*'; If there are multiple hosts, the search engines take the value of the first.</li>
 <li>From the class, unused methods are removed, refactoring done, the scope of properties of the class is corrected.</li>
 <li>Added more test cases, as well as test cases added to the whole new functionality.</li>
-<li>[RobotsTxtValidator](https://github.com/bopoda/robots-txt-parser/blob/master/RobotsTxtValidator.php) class added to check if url is allowed to parsing.</li>
+<li><a href="https://github.com/bopoda/robots-txt-parser/blob/master/RobotsTxtValidator.php">RobotsTxtValidator</a> class added to check if url is allowed to parsing.</li>
 <li>With version 2.0, the speed of RobotsTxtParser was improved.</li>
 </ol>
 
