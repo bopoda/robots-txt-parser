@@ -65,7 +65,7 @@ class RobotsTxtParser
    		$this->content = mb_convert_encoding($content, 'UTF-8', $encoding);
 
    		$this->prepareRules();
-	} 
+	}
 
 	/**
 	 * Get rules by specific bot (user-agent)
@@ -157,7 +157,7 @@ class RobotsTxtParser
 			$directive = trim(strtolower($parts[0]));
 			$value = trim($parts[1]);
 
-			if (!in_array($directive, $this->getAllowedDirectives()) || !$value) {
+			if (!in_array($directive, $this->getAllowedDirectives(), true)) {
 				continue;
 			}
 
@@ -192,15 +192,21 @@ class RobotsTxtParser
 	 */
 	private function handleDirective($directive, $value)
 	{
+		$previousDirective = $this->currentDirective;
+		$this->currentDirective = $directive;
+
+		if (!$value) {
+			return;
+		}
+
 		switch ($directive) {
 			case self::DIRECTIVE_USERAGENT:
-				if ($this->currentDirective != self::DIRECTIVE_USERAGENT) {
+				if ($previousDirective != self::DIRECTIVE_USERAGENT) {
 					$this->userAgentsBuffer = [];
 				}
 
 				$userAgent = strtolower($value);
 				$this->userAgentsBuffer[] = $userAgent;
-				$this->currentDirective = $directive;
 
 				if (!isset($this->rules[$userAgent])) {
 					$this->rules[$userAgent] = [];
@@ -208,16 +214,14 @@ class RobotsTxtParser
 
 				break;
 
-			case self::DIRECTIVE_DISALLOW:
-				$this->currentDirective = $directive;
 
+			case self::DIRECTIVE_DISALLOW:
 				foreach ($this->userAgentsBuffer as $userAgent) {
 					$this->rules[$userAgent][self::DIRECTIVE_DISALLOW][] = $value;
 				}
 
 				break;
 			case self::DIRECTIVE_CRAWL_DELAY:
-				$this->currentDirective = $directive;
 
 				foreach ($this->userAgentsBuffer as $userAgent) {
 					$this->rules[$userAgent][self::DIRECTIVE_CRAWL_DELAY] = (double)$value;
@@ -226,15 +230,11 @@ class RobotsTxtParser
 				break;
 
 			case self::DIRECTIVE_SITEMAP:
-				$this->currentDirective = $directive;
-
 				$this->rules[self::USER_AGENT_ALL][self::DIRECTIVE_SITEMAP][] = $value;
 
 				break;
 
 			case self::DIRECTIVE_HOST:
-				$this->currentDirective = $directive;
-
 				if (empty($this->rules[self::USER_AGENT_ALL][self::DIRECTIVE_HOST])) {
 					$this->rules[self::USER_AGENT_ALL][self::DIRECTIVE_HOST] = $value;
 				}
@@ -242,8 +242,6 @@ class RobotsTxtParser
 				break;
 
 			default:
-				$this->currentDirective = $directive;
-
 				foreach ($this->userAgentsBuffer as $userAgent) {
 					$this->rules[$userAgent][$this->currentDirective][] = $value;
 				}

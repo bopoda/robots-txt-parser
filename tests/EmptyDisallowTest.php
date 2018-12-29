@@ -10,34 +10,41 @@ class EmptyDisallowTest extends \PHPUnit\Framework\TestCase
 		require_once(realpath(__DIR__.'/../RobotsTxtParser.php'));
 	}
 
-	/**
-	 * @dataProvider generateDataForTest
-	 */
-	public function testEmptyDisallow($robotsTxtContent)
+	public function testEmptyDisallow()
 	{
-		// init parser
+		$robotsTxtContent = <<<'EOTXT'
+User-Agent: *
+Disallow:
+Disallow: /foo
+Disallow: /bar
+EOTXT;
+
 		$parser = new RobotsTxtParser($robotsTxtContent);
-		$this->assertInstanceOf('RobotsTxtParser', $parser);
 
 		$rules = $parser->getRules('*');
 		$this->assertNotEmpty($rules);
 		$this->assertArrayHasKey('disallow', $rules);
-		$this->assertEquals(2, count($rules['disallow']));
+		$this->assertCount(2, $rules['disallow']);
 	}
 
-	/**
-	 * Generate test case data
-	 * @return array
-	 */
-	public function generateDataForTest()
+	public function testEmptyDisallowWithDoubleSections()
 	{
-		return array(
-			array("
-				User-Agent: *
-				Disallow:
-				Disallow: /foo
-				Disallow: /bar
-			")
-		);
-	}
-}
+		$robotsTxtContent = <<<'EOTXT'
+User-agent: *
+Disallow:
+
+User-agent: Linguee
+Disallow: /
+
+User-agent: *
+Disallow: /api/showcase
+EOTXT;
+
+		$parser = new RobotsTxtParser($robotsTxtContent);
+
+		$rules = $parser->getRules('*');
+		$this->assertNotEmpty($rules);
+		$this->assertArrayHasKey('disallow', $rules);
+
+		$this->assertCount(1, $rules['disallow']);
+	}}
