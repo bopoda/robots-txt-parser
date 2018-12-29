@@ -19,7 +19,7 @@ class HttpTest extends \PHPUnit\Framework\TestCase
 		$this->assertNotEmpty($rules);
 		$this->assertArrayHasKey('disallow', $rules);
 		$this->assertGreaterThan(100, count($rules['disallow']), 'expected more than 100 disallow rules');
-		$this->assertGreaterThan(2, count($rules['sitemap']), 'expected more than 2 sitemaps');
+		$this->assertGreaterThan(1, count($rules['sitemap']), 'expected more than 1 sitemap');
 	}
 
 	public function testRozetkaComUa()
@@ -31,10 +31,11 @@ class HttpTest extends \PHPUnit\Framework\TestCase
 
 		$this->assertNotEmpty($rules);
 		$this->assertArrayHasKey('disallow', $rules);
-		$this->assertArrayHasKey('host', $rules);
 		$this->assertGreaterThan(3, count($rules['disallow']), 'expected more than 3 disallow rules');
 		$this->assertNotEmpty($parser->getRules('mediapartners-google'), 'expected Mediapartners-Google rules');
-		$this->assertRegexp('!^(https?://)rozetka\.com\.ua$!', $rules['host'], 'strange Host');
+		if (isset($rules['host'])) {
+			$this->assertRegexp('!^(https?://)rozetka\.com\.ua$!', $rules['host'], 'strange Host detected');
+		}
 	}
 
 	/**
