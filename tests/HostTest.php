@@ -10,7 +10,7 @@ class HostTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * @dataProvider generateDataForTest
 	 */
-	public function testHost($robotsTxtContent, $expectedHost = NULL, $message = NULL)
+	public function testHost($robotsTxtContent, $expectedHost = NULL, $message = '')
 	{
 		// init parser
 		$parser = new RobotsTxtParser($robotsTxtContent);
