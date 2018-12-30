@@ -1,15 +1,9 @@
 <?php
 
+namespace RobotsTxtParser;
+
 class HttpTest extends \PHPUnit\Framework\TestCase
 {
-	/**
-	 * Load library
-	 */
-	public static function setUpBeforeClass()
-	{
-		require_once(realpath(__DIR__.'/../RobotsTxtParser.php'));
-	}
-
 	public function testGoogleCom()
 	{
 		$robotsTxtContent = $this->getRobotsTxtContent('google.com');

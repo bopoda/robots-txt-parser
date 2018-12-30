@@ -21,7 +21,7 @@ Parsing is carried out according to the rules in accordance with Google & Yandex
 <li>From the class, unused methods are removed, refactoring done, the scope of properties of the class is corrected.</li>
 <li>Added more test cases, as well as test cases added to the whole new functionality.</li>
 <li><a href="https://github.com/bopoda/robots-txt-parser/blob/master/RobotsTxtValidator.php">RobotsTxtValidator</a> class added to check if url is allowed to parsing.</li>
-<li>With version 2.0, the speed of RobotsTxtParser was improved.</li>
+<li>With version 2.0, the speed of RobotsTxtParser was significantly improved.</li>
 </ol>
 
 
@@ -34,6 +34,22 @@ Parsing is carried out according to the rules in accordance with Google & Yandex
 * DIRECTIVE_CRAWL_DELAY = 'crawl-delay';
 * DIRECTIVE_CLEAN_PARAM = 'clean-param';
 * DIRECTIVE_NOINDEX = 'noindex';
+
+## Installation
+
+Install the latest version with
+
+```bash
+$ composer require bopoda/robots-txt-parser
+```
+
+## Run tests
+
+Run phpunit tests using command
+
+```bash
+$ php vendor/bin/phpunit
+```
 
 ### Usage example
 
@@ -103,5 +119,5 @@ if ($validator->isUrlAllow($url, $userAgent)) {
 ```
 
 ### Final Notes:
-Please use [v2.0](https://github.com/bopoda/robots-txt-parser/releases/tag/2.0)+ (the latest master)
+Please use [v2.0](https://github.com/bopoda/robots-txt-parser/releases/tag/2.0)+ version
 which works by same rules but is more highly performance.

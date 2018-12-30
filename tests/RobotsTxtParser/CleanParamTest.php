@@ -1,15 +1,9 @@
 <?php
 
+namespace RobotsTxtParser;
+
 class CleanParamTest extends \PHPUnit\Framework\TestCase
 {
-	/**
-	 * Load library
-	 */
-	public static function setUpBeforeClass()
-	{
-		require_once(realpath(__DIR__.'/../RobotsTxtParser.php'));
-	}
-
 	/**
 	 * @link https://help.yandex.ru/webmaster/controlling-robot/robots-txt.xml#clean-param
 	 *
@@ -18,7 +12,6 @@ class CleanParamTest extends \PHPUnit\Framework\TestCase
 	public function testCleanParam($robotsTxtContent, $message = NULL)
 	{
 		$parser = new RobotsTxtParser($robotsTxtContent);
-		$this->assertInstanceOf('RobotsTxtParser', $parser);
 		$rules = $parser->getRules();
 		$this->assertArrayHasKey('*', $rules);
 		$this->assertArrayHasKey('clean-param', $rules['*']);
@@ -31,7 +24,6 @@ class CleanParamTest extends \PHPUnit\Framework\TestCase
 	public function testCleanParamWithPath($robotsTxtContent, $expectedCleanParamValue)
 	{
 		$parser = new RobotsTxtParser($robotsTxtContent);
-		$this->assertInstanceOf('RobotsTxtParser', $parser);
 		$rules = $parser->getRules();
 		$this->assertArrayHasKey('*', $rules);
 		$this->assertArrayHasKey('clean-param', $rules['*']);

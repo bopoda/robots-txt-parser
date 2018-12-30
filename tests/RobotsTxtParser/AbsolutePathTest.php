@@ -1,22 +1,15 @@
 <?php
 
+namespace RobotsTxtParser;
+
 class AbsolutePathTest extends \PHPUnit\Framework\TestCase
 {
-	/**
-	 * Load library
-	 */
-	public static function setUpBeforeClass()
-	{
-		require_once(realpath(__DIR__.'/../RobotsTxtParser.php'));
-	}
-
 	/**
 	 * @dataProvider generateDataForTest
 	 */
 	public function testDifferentDisallowPath($robotsTxtContent, $expectedDisallow = NULL)
 	{
 		$parser = new RobotsTxtParser($robotsTxtContent);
-		$this->assertInstanceOf('RobotsTxtParser', $parser);
 		$rules = $parser->getRules('*');
 
 		if (!$expectedDisallow) {

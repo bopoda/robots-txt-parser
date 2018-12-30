@@ -1,5 +1,7 @@
 <?php
 
+namespace RobotsTxtParser;
+
 /**
  * Class for parsing robots.txt files
  *

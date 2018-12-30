@@ -1,17 +1,9 @@
-
 <?php
+
+namespace RobotsTxtParser;
 
 class Issue48Test extends \PHPUnit\Framework\TestCase
 {
-	/**
-	 * Load library
-	 */
-	public static function setUpBeforeClass()
-	{
-		require_once(realpath(__DIR__.'/../RobotsTxtParser.php'));
-		require_once(realpath(__DIR__.'/../RobotsTxtValidator.php'));
-	}
-
 	public function testIsUrlAllowWithPlus()
 	{
 		$robotsTxtContentIssue = "

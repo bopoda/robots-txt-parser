@@ -1,12 +1,9 @@
 <?php
 
+namespace RobotsTxtParser;
+
 class DifferentCasesTest extends \PHPUnit\Framework\TestCase
 {
-	public static function setUpBeforeClass()
-	{
-		require_once(realpath(__DIR__.'/../RobotsTxtParser.php'));
-	}
-
 	/**
 	 * https://github.com/bopoda/robots-txt-parser/issues/5
 	 */
@@ -20,7 +17,6 @@ class DifferentCasesTest extends \PHPUnit\Framework\TestCase
 			";
 
 		$parser = new RobotsTxtParser($robotsTxtContent);
-		$this->assertInstanceOf('RobotsTxtParser', $parser);
 
 		$rules = $parser->getRules();
 
@@ -48,7 +44,6 @@ class DifferentCasesTest extends \PHPUnit\Framework\TestCase
 			";
 
 		$parser = new RobotsTxtParser($robotsTxtContent);
-		$this->assertInstanceOf('RobotsTxtParser', $parser);
 
 		$siteMaps = $parser->getSitemaps();
 		$this->assertNotEmpty($siteMaps, 'got empty sitemap list');
@@ -67,7 +62,6 @@ class DifferentCasesTest extends \PHPUnit\Framework\TestCase
 		";
 
 		$parser = new RobotsTxtParser($robotsTxtContent);
-		$this->assertInstanceOf('RobotsTxtParser', $parser);
 		// Check if the number of sitemaps is 1
 		$this->assertTrue(count($parser->getSitemaps()) == 1);
 	}

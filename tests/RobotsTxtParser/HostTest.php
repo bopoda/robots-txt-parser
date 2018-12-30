@@ -1,12 +1,9 @@
 <?php
 
+namespace RobotsTxtParser;
+
 class HostTest extends \PHPUnit\Framework\TestCase
 {
-	public static function setUpBeforeClass()
-	{
-		require_once(realpath(__DIR__.'/../RobotsTxtParser.php'));
-	}
-
 	/**
 	 * @dataProvider generateDataForTest
 	 */
@@ -15,7 +12,6 @@ class HostTest extends \PHPUnit\Framework\TestCase
 		// init parser
 		$parser = new RobotsTxtParser($robotsTxtContent);
 		$rules = $parser->getRules();
-		$this->assertInstanceOf('RobotsTxtParser', $parser);
 		$this->assertArrayHasKey('*', $rules, $message);
 
 		if ($expectedHost) {

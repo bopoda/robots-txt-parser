@@ -1,15 +1,9 @@
 <?php
 
+namespace RobotsTxtParser;
+
 class RobotsTxtValidatorTest extends \PHPUnit\Framework\TestCase
 {
-	/**
-	 * Load library
-	 */
-	public static function setUpBeforeClass()
-	{
-		require_once(realpath(__DIR__.'/../RobotsTxtValidator.php'));
-	}
-
 	/**
 	 * Check is url allow for user-agent *
 	 *
@@ -165,12 +159,13 @@ class RobotsTxtValidatorTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * @dataProvider getRelativeUrlProvider
 	 *
-	 * @param string $url
-	 * @param string $expectedUrl
+	 * @param $url
+	 * @param $expectedUrl
+	 * @throws \ReflectionException
 	 */
 	public function testGetRelativeUrl($url, $expectedUrl)
 	{
-		$class = new ReflectionClass('RobotsTxtValidator');
+		$class = new \ReflectionClass('RobotsTxtParser\RobotsTxtValidator');
 		$method = $class->getMethod('getRelativeUrl');
 		$method->setAccessible(true);
 		$validator = new RobotsTxtValidator(array());

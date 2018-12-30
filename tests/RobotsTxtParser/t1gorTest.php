@@ -1,17 +1,12 @@
 <?php
 
+namespace RobotsTxtParser;
+
 /**
- * Class t1gorTest
  * This Test Class created to check bugs/issues which are found in similar library https://github.com/t1gor/Robots.txt-Parser-Class/issues
  */
 class t1gorTest extends \PHPUnit\Framework\TestCase
 {
-	public static function setUpBeforeClass()
-	{
-		require_once(realpath(__DIR__.'/../RobotsTxtParser.php'));
-		require_once(realpath(__DIR__.'/../RobotsTxtValidator.php'));
-	}
-
 	/**
 	 * Test that parsing of large robots.txt file require a little time. Less than 1s for php 5.6+
 	 *

@@ -1,23 +1,15 @@
 <?php
 
+namespace RobotsTxtParser;
+
 class RelativePathTest extends \PHPUnit\Framework\TestCase
 {
-	/**
-	 * Load library
-	 */
-	public static function setUpBeforeClass()
-	{
-		require_once(realpath(__DIR__.'/../RobotsTxtParser.php'));
-		require_once(realpath(__DIR__.'/../RobotsTxtValidator.php'));
-	}
-
 	/**
 	 * @dataProvider generateDataForTest
 	 */
 	public function testRelativePath($robotsTxtContent)
 	{
 		$parser = new RobotsTxtParser($robotsTxtContent);
-		$this->assertInstanceOf('RobotsTxtParser', $parser);
 		$allRules = $parser->getRules();
 		$this->assertArrayHasKey('*', $allRules );
 

@@ -1,19 +1,15 @@
 <?php
 
+namespace RobotsTxtParser;
+
 class TyposDirectiveTest extends \PHPUnit\Framework\TestCase
 {
-	public static function setUpBeforeClass()
-	{
-		require_once(realpath(__DIR__ . '/../RobotsTxtParser.php'));
-	}
-
 	/**
 	 * @dataProvider generateDataForTest
 	 */
 	public function testTyposDirective($robotsTxtContent, array $expectedDisallow)
 	{
 		$parser = new RobotsTxtParser($robotsTxtContent);
-		$this->assertInstanceOf('RobotsTxtParser', $parser);
 
 		$rules = $parser->getRules('*');
 

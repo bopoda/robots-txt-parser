@@ -1,15 +1,9 @@
 <?php
 
+namespace RobotsTxtParser;
+
 class CrawlDelayTest extends \PHPUnit\Framework\TestCase
 {
-	/**
-	 * Load library
-	 */
-	public static function setUpBeforeClass()
-	{
-		require_once(realpath(__DIR__.'/../RobotsTxtParser.php'));
-	}
-
 	/**
 	 * @dataProvider generateDataForTest
 	 */
@@ -17,7 +11,6 @@ class CrawlDelayTest extends \PHPUnit\Framework\TestCase
 	{
 		// init parser
 		$parser = new RobotsTxtParser($robotsTxtContent);
-		$this->assertInstanceOf('RobotsTxtParser', $parser);
 		$rules = $parser->getRules();
 		$this->assertArrayHasKey('ahrefsbot', $rules);
 		$this->assertArrayHasKey('crawl-delay', $rules['ahrefsbot']);

@@ -1,5 +1,7 @@
 <?php
 
+namespace RobotsTxtParser;
+
 /**
  * Class RobotsTxtValidator
  * Class designed to check is url allowed or not to crawl by specific user-agent according to robots.txt rules.

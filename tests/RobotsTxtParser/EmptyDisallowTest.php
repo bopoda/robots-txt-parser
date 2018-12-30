@@ -1,15 +1,9 @@
 <?php
 
+namespace RobotsTxtParser;
+
 class EmptyDisallowTest extends \PHPUnit\Framework\TestCase
 {
-	/**
-	 * Load library
-	 */
-	public static function setUpBeforeClass()
-	{
-		require_once(realpath(__DIR__.'/../RobotsTxtParser.php'));
-	}
-
 	public function testEmptyDisallow()
 	{
 		$robotsTxtContent = <<<'EOTXT'

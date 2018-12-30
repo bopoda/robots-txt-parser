@@ -1,12 +1,9 @@
 <?php
 
+namespace RobotsTxtParser;
+
 class RulesTest extends \PHPUnit\Framework\TestCase
 {
-	public static function setUpBeforeClass()
-	{
-		require_once(realpath(__DIR__.'/../RobotsTxtParser.php'));
-	}
-
 	/**
 	 * @dataProvider generateDataForTest
 	 */
@@ -14,7 +11,6 @@ class RulesTest extends \PHPUnit\Framework\TestCase
 	{
 		// init parser
 		$parser = new RobotsTxtParser($robotsTxtContent);
-		$this->assertInstanceOf('RobotsTxtParser', $parser);
 		$this->assertEquals($expectedRules, $parser->getRules());
 	}
 

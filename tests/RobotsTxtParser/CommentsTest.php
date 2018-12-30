@@ -1,20 +1,15 @@
 <?php
 
+namespace RobotsTxtParser;
+
 class CommentsTest extends \PHPUnit\Framework\TestCase
 {
-	public static function setUpBeforeClass()
-	{
-		require_once(realpath(__DIR__.'/../RobotsTxtParser.php'));
-	}
-
 	/**
 	 * @dataProvider generateDataForTest
 	 */
 	public function testRemoveComments($robotsTxtContent)
 	{
 		$parser = new RobotsTxtParser($robotsTxtContent);
-		$this->assertInstanceOf('RobotsTxtParser', $parser);
-
 		$rules = $parser->getRules('*');
 
 		$this->assertEmpty($rules, 'expected remove comments');
@@ -26,7 +21,7 @@ class CommentsTest extends \PHPUnit\Framework\TestCase
 	public function testRemoveCommentsFromValue($robotsTxtContent, $expectedDisallowValue)
 	{
 		$parser = new RobotsTxtParser($robotsTxtContent);
-		$this->assertInstanceOf('RobotsTxtParser', $parser);
+
 
 		$rules = $parser->getRules('*');
 
