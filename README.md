@@ -118,6 +118,11 @@ if ($validator->isUrlAllow($url, $userAgent)) {
 }
 ```
 
+### Contribution
+Feel free to create PR in this repository. Please, follow PSR style.
+
+See the list of [contributors](https://github.com/bopoda/robots-txt-parser/graphs/contributors) which participated in this project.
+
 ### Final Notes:
 Please use [v2.0](https://github.com/bopoda/robots-txt-parser/releases/tag/2.0)+ version
 which works by same rules but is more highly performance.

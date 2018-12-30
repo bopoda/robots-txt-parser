@@ -4,24 +4,25 @@ namespace RobotsTxtParser;
 
 class RulesTest extends \PHPUnit\Framework\TestCase
 {
-	/**
-	 * @dataProvider generateDataForTest
-	 */
-	public function testGetRules($robotsTxtContent, $expectedRules = array())
-	{
-		// init parser
-		$parser = new RobotsTxtParser($robotsTxtContent);
-		$this->assertEquals($expectedRules, $parser->getRules());
-	}
+    /**
+     * @dataProvider generateDataForTest
+     */
+    public function testGetRules($robotsTxtContent, $expectedRules = array())
+    {
+        // init parser
+        $parser = new RobotsTxtParser($robotsTxtContent);
+        $this->assertEquals($expectedRules, $parser->getRules());
+    }
 
-	/**
-	 * Generate test case data
-	 * @return array
-	 */
-	public function generateDataForTest()
-	{
-		return array(
-			array("
+    /**
+     * Generate test case data
+     * @return array
+     */
+    public function generateDataForTest()
+    {
+        return array(
+            array(
+                "
 					User-Agent: *
 					Disallow: /ajax
 					Disallow: /search
@@ -32,42 +33,44 @@ class RulesTest extends \PHPUnit\Framework\TestCase
 
 					Host: example.com
 				",
-				'expectedRules' => array(
-					'*' => array(
-						'disallow' => array(
-							0 => '/ajax',
-							1 => '/search',
-						),
-						'clean-param' => array(
-							0 => 'param1 /path/file.php',
-						),
-						'host' => 'example.com',
-					),
-					'yahoo' => array(
-						'disallow' => array(
-							0 => '/',
-						),
-					),
-				)
-			),
-			array("
+                'expectedRules' => array(
+                    '*' => array(
+                        'disallow' => array(
+                            0 => '/ajax',
+                            1 => '/search',
+                        ),
+                        'clean-param' => array(
+                            0 => 'param1 /path/file.php',
+                        ),
+                        'host' => 'example.com',
+                    ),
+                    'yahoo' => array(
+                        'disallow' => array(
+                            0 => '/',
+                        ),
+                    ),
+                )
+            ),
+            array(
+                "
 					User-Agent: yandex
 					Clean-param: param1&param2 /path/file.php
 
 					Host: www.example.com
 				",
-				'expectedRules' => array(
-					'*' => array(
-						'host' => 'www.example.com',
-					),
-					'yandex' => array(
-						'clean-param' => array(
-							0 => 'param1&param2 /path/file.php',
-						),
-					),
-				)
-			),
-			array("
+                'expectedRules' => array(
+                    '*' => array(
+                        'host' => 'www.example.com',
+                    ),
+                    'yandex' => array(
+                        'clean-param' => array(
+                            0 => 'param1&param2 /path/file.php',
+                        ),
+                    ),
+                )
+            ),
+            array(
+                "
 					User-agent: Yandex
 					Allow: /archive
 					Disallow: /
@@ -87,22 +90,22 @@ class RulesTest extends \PHPUnit\Framework\TestCase
 					Disallow: /add.php?*user=
 					# запрещает все скрипты 'add.php?' с параметром 'user'
 				",
-				'expectedRules' => array(
-					'yandex' => array (
-						'allow' => array(
-							0 => '/archive',
-							1 => '/obsolete/private/*.html$',
-						),
-						'disallow' => array (
-							0 => '/',
-							1 => '/*.php$',
-							2 => '/*/private/',
-							3 => '/*/old/*.zip$',
-							4 => '/add.php?*user=',
-						),
-					),
-				),
-			),
-		);
-	}
+                'expectedRules' => array(
+                    'yandex' => array(
+                        'allow' => array(
+                            0 => '/archive',
+                            1 => '/obsolete/private/*.html$',
+                        ),
+                        'disallow' => array(
+                            0 => '/',
+                            1 => '/*.php$',
+                            2 => '/*/private/',
+                            3 => '/*/old/*.zip$',
+                            4 => '/add.php?*user=',
+                        ),
+                    ),
+                ),
+            ),
+        );
+    }
 }

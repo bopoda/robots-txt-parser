@@ -4,9 +4,9 @@ namespace RobotsTxtParser;
 
 class MultipleUserAgentsRulesTest extends \PHPUnit\Framework\TestCase
 {
-	public function testParseMultipleUserAgentsRules()
-	{
-		$robotsTxtContent = "
+    public function testParseMultipleUserAgentsRules()
+    {
+        $robotsTxtContent = "
 			User-agent: SEOkicks-Robot
 			User-agent: Spiderlytics
 			User-agent: ShopWiki
@@ -19,26 +19,26 @@ class MultipleUserAgentsRulesTest extends \PHPUnit\Framework\TestCase
 				disallow: /
 		";
 
-		$parser = new RobotsTxtParser($robotsTxtContent);
+        $parser = new RobotsTxtParser($robotsTxtContent);
 
-		foreach (['SEOkicks-Robot', 'Spiderlytics', 'ShopWiki', 'oBot/2.3.1'] as $userAgent) {
-			$this->assertEquals(
-				[
-					'crawl-delay' => 60,
-				],
-				$parser->getRules($userAgent),
-				'failed to get correct rules for user-agent ' .$userAgent
-			);
-		}
+        foreach (['SEOkicks-Robot', 'Spiderlytics', 'ShopWiki', 'oBot/2.3.1'] as $userAgent) {
+            $this->assertEquals(
+                [
+                    'crawl-delay' => 60,
+                ],
+                $parser->getRules($userAgent),
+                'failed to get correct rules for user-agent ' . $userAgent
+            );
+        }
 
-		foreach (['008', 'Accoona', 'aipbot', 'aipbot*'] as $userAgent) {
-			$this->assertEquals(
-				[
-					'disallow' => ['/'],
-				],
-				$parser->getRules($userAgent),
-				'failed to get correct rules for user-agent ' .$userAgent
-			);
-		}
-	}
+        foreach (['008', 'Accoona', 'aipbot', 'aipbot*'] as $userAgent) {
+            $this->assertEquals(
+                [
+                    'disallow' => ['/'],
+                ],
+                $parser->getRules($userAgent),
+                'failed to get correct rules for user-agent ' . $userAgent
+            );
+        }
+    }
 }

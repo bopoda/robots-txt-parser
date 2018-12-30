@@ -4,32 +4,32 @@ namespace RobotsTxtParser;
 
 class DifferentCasesTest extends \PHPUnit\Framework\TestCase
 {
-	/**
-	 * https://github.com/bopoda/robots-txt-parser/issues/5
-	 */
-	public function testIssue5()
-	{
-		$robotsTxtContent = "
+    /**
+     * https://github.com/bopoda/robots-txt-parser/issues/5
+     */
+    public function testIssue5()
+    {
+        $robotsTxtContent = "
 				User-agent:Googlebot
 				Disallow:/
 				User-agent:Cocon.Se Crawler
 				Disallow:/
 			";
 
-		$parser = new RobotsTxtParser($robotsTxtContent);
+        $parser = new RobotsTxtParser($robotsTxtContent);
 
-		$rules = $parser->getRules();
+        $rules = $parser->getRules();
 
-		$this->assertArrayHasKey('googlebot', $rules, 'googlebot rules is empty');
-		$this->assertArrayHasKey('cocon.se crawler', $rules, 'cocon.se crawler rules is empty');
-	}
+        $this->assertArrayHasKey('googlebot', $rules, 'googlebot rules is empty');
+        $this->assertArrayHasKey('cocon.se crawler', $rules, 'cocon.se crawler rules is empty');
+    }
 
-	/**
-	 * https://github.com/bopoda/robots-txt-parser/issues/7
-	 */
-	public function testIssue7()
-	{
-		$robotsTxtContent = "
+    /**
+     * https://github.com/bopoda/robots-txt-parser/issues/7
+     */
+    public function testIssue7()
+    {
+        $robotsTxtContent = "
 				Sitemap: http://example.com/sitemap.xml?year=2016
 				Sitemap: http://example.com/sitemap.xml?year=2016
 				Sitemap: http://example.com/sitemap.xml?year=2016
@@ -43,26 +43,26 @@ class DifferentCasesTest extends \PHPUnit\Framework\TestCase
 				Sitemap: http://example.com/sitemap.xml?year=2017
 			";
 
-		$parser = new RobotsTxtParser($robotsTxtContent);
+        $parser = new RobotsTxtParser($robotsTxtContent);
 
-		$siteMaps = $parser->getSitemaps();
-		$this->assertNotEmpty($siteMaps, 'got empty sitemap list');
-		$this->assertEquals(5, count($siteMaps), 'wrong unique sitemap urls count');
-	}
+        $siteMaps = $parser->getSitemaps();
+        $this->assertNotEmpty($siteMaps, 'got empty sitemap list');
+        $this->assertEquals(5, count($siteMaps), 'wrong unique sitemap urls count');
+    }
 
-	/**
-	 * https://github.com/bopoda/robots-txt-parser/pull/8#issuecomment-270947974
-	 */
-	public function testSitemapsUniqueness()
-	{
-		$robotsTxtContent = "
+    /**
+     * https://github.com/bopoda/robots-txt-parser/pull/8#issuecomment-270947974
+     */
+    public function testSitemapsUniqueness()
+    {
+        $robotsTxtContent = "
 			Sitemap: http://example.com/sitemap.xml?year=2017
 			Sitemap: http://example.com/sitemap.xml?year=2017
 			Sitemap: http://example.com/sitemap.xml?year=2017
 		";
 
-		$parser = new RobotsTxtParser($robotsTxtContent);
-		// Check if the number of sitemaps is 1
-		$this->assertTrue(count($parser->getSitemaps()) == 1);
-	}
+        $parser = new RobotsTxtParser($robotsTxtContent);
+        // Check if the number of sitemaps is 1
+        $this->assertTrue(count($parser->getSitemaps()) == 1);
+    }
 }
