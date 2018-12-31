@@ -179,21 +179,35 @@ class RobotsTxtValidatorTest extends \PHPUnit\Framework\TestCase
      */
     public function getRelativeUrlProvider()
     {
-        return array(
-            array(
+        return [
+            [
                 'http://example.com/test',
                 '/test',
+            ],
+            [
                 'https://example.com/test/path',
                 '/test/path',
+            ],
+            [
                 '/test/any/path',
                 '/test/any/path',
+            ],
+            [
                 'http://example.com',
                 '/',
+            ],
+            [
+                'http://example.com/',
+                '/',
+            ],
+            [
                 '/',
                 '/',
+            ],
+            [
                 '/some/path',
                 '/some/path',
-            )
-        );
+            ]
+        ];
     }
 }

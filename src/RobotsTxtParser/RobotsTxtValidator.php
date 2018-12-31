@@ -31,7 +31,7 @@ class RobotsTxtValidator
     /**
      * Return true if url is allow to crawl by robots.txt rules otherwise false
      *
-     * @param string $url
+     * @param string $url Should be relative
      * @param string $userAgent
      * @return bool
      */
@@ -158,23 +158,30 @@ class RobotsTxtValidator
      *
      * @param string $url
      * @return string
-     * @throws \Exception
+     * @throws \InvalidArgumentException
      */
     private function getRelativeUrl($url)
     {
         if (!$url) {
-            throw new \Exception('Url should not be empty');
+            throw new \InvalidArgumentException('Url should not be empty');
         }
 
         if (!preg_match('!^https?://!i', $url)) {
             if (empty($url[0]) || $url[0] !== '/') {
-                throw new \Exception('Url should start from "/" or has protocol with domain, got ' . $url);
+                throw new \InvalidArgumentException('Url should start from "/" or has protocol with domain, got ' . $url);
             } else {
                 return $url;
             }
         }
 
         $parsedUrl = parse_url($url);
+        if (!$parsedUrl) {
+            throw new \InvalidArgumentException('Can\'t parse url, probably url is invalid');
+        }
+        if (isset($parsedUrl['host']) && !isset($parsedUrl['path'])) {
+            return '/';
+        }
+        // make url relative
         return ((isset($parsedUrl['path']) ? "{$parsedUrl['path']}" : '') .
             (isset($parsedUrl['query']) ? "?{$parsedUrl['query']}" : ''));
     }
