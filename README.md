@@ -3,9 +3,9 @@ robots-txt-parser
 
 [![Build Status](https://travis-ci.org/bopoda/robots-txt-parser.svg?branch=master)](https://travis-ci.org/bopoda/robots-txt-parser)
 
-## [RobotsTxtParser](https://github.com/bopoda/robots-txt-parser/blob/master/RobotsTxtParser.php) — PHP class for parsing all the directives of the robots.txt files
+## [RobotsTxtParser](https://github.com/bopoda/robots-txt-parser/blob/master/src/RobotsTxtParser/RobotsTxtParser.php) — PHP class for parsing all the directives of the robots.txt files
 
-## [RobotsTxtValidator](https://github.com/bopoda/robots-txt-parser/blob/master/RobotsTxtValidator.php) — PHP class for check is url allow or disallow according to robots.txt rules. 
+## [RobotsTxtValidator](https://github.com/bopoda/robots-txt-parser/blob/master/src/RobotsTxtParser/RobotsTxtValidator.php) — PHP class for check is url allow or disallow according to robots.txt rules. 
 
 Try [demo](http://robots.jeka.by/) of RobotsTxtParser on-line on live domains.
 
@@ -20,7 +20,7 @@ Parsing is carried out according to the rules in accordance with Google & Yandex
 <li>The improvement of the Parse of Host — the intersection directive, should refer to the user-agent '*'; If there are multiple hosts, the search engines take the value of the first.</li>
 <li>From the class, unused methods are removed, refactoring done, the scope of properties of the class is corrected.</li>
 <li>Added more test cases, as well as test cases added to the whole new functionality.</li>
-<li><a href="https://github.com/bopoda/robots-txt-parser/blob/master/RobotsTxtValidator.php">RobotsTxtValidator</a> class added to check if url is allowed to parsing.</li>
+<li><a href="https://github.com/bopoda/robots-txt-parser/blob/master/src/RobotsTxtParser/RobotsTxtValidator.php">RobotsTxtValidator</a> class added to check if url is allowed to parsing.</li>
 <li>With version 2.0, the speed of RobotsTxtParser was significantly improved.</li>
 </ol>
 
