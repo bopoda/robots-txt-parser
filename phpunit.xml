@@ -1,29 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <phpunit bootstrap="tests/bootstrap.php">
-	<logging>
-		<log type="coverage-clover" target="build/logs/clover.xml"/>
-	</logging>
+	<filter>
+		<whitelist>
+			<directory suffix=".php">src/RobotsTxtParser/</directory>
+		</whitelist>
+	</filter>
 	<testsuites>
-		<testsuite name="">
-			<file>tests/RelativePathTest.php</file>
-			<file>tests/CrawlDelayTest.php</file>
-			<file>tests/EmptyDisallowTest.php</file>
-			<file>tests/HostTest.php</file>
-			<file>tests/CleanParamTest.php</file>
-			<file>tests/WhitespacesTest.php</file>
-			<file>tests/CommentsTest.php</file>
-			<file>tests/RulesTest.php</file>
-			<file>tests/AbsolutePathTest.php</file>
-			<file>tests/HttpTest.php</file>
-			<file>tests/DifferentCasesTest.php</file>
-			<file>tests/RobotsTxtValidatorTest.php</file>
-			<file>tests/NoIndexTest.php</file>
-			<file>tests/CommonTest.php</file>
-			<file>tests/TyposDirectiveTest.php</file>
-			<file>tests/t1gorTest.php</file>
-			<file>tests/MultipleUserAgentsRulesTest.php</file>
-			<file>tests/Issue13Test.php</file>
-			<file>tests/Issue48Test.php</file>
+		<testsuite name="RobotsTxtParser Test Suite">
+			<directory>tests/RobotsTxtParser</directory>
 		</testsuite>
 	</testsuites>
 </phpunit>
