@@ -199,6 +199,8 @@ class RobotsTxtValidator
             '/\./' => '\.',
             '/\+/' => '\+',
             '/\*/' => '.*',
+            '/\[/' => '\[',
+            '/\]/' => '\]',
         );
 
         $ruleValue = preg_replace(array_keys($replacements), array_values($replacements), $ruleValue);

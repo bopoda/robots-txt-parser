@@ -39,6 +39,7 @@ User-agent: *
 
 User-agent: *
 	Disallow: /*/?replytocom=*
+	Disallow: *?example_param[]=*
 				  "
             )
         );
