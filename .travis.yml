@@ -1,14 +1,15 @@
 sudo: false
 language: php
-php:
-  - 5.4
-    dist: precise
-  - 5.5
-    dist: precise
-  - 5.6
-  - 7.0
-  - 7.1
-  - 7.2
-  - 7.3
+jobs:
+  include:
+    - php: 5.4
+      dist: precise
+    - php: 5.5
+      dist: precise
+    - 5.6
+    - 7.0
+    - 7.1
+    - 7.2
+    - 7.3
 before_script:
   - composer dump-autoload
