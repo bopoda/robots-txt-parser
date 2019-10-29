@@ -13,3 +13,4 @@ jobs:
     - php: 7.3
 before_script:
   - composer dump-autoload
+script: vendor/bin/phpunit
