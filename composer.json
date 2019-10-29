@@ -26,6 +26,6 @@
     "psr-4": {"RobotsTxtParser\\": "tests/RobotsTxtParser"}
   },
   "scripts": {
-    "test": "phpunit"
+    "test": "vendor/bin/phpunit"
   }
 }
