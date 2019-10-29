@@ -193,19 +193,30 @@ class RobotsTxtValidator
      */
     private static function prepareRegexpRule($ruleValue)
     {
-        $replacements = array(
-            '/\$./' => '\$',
-            '/\?/' => '\?',
-            '/\./' => '\.',
-            '/\+/' => '\+',
-            '/\*/' => '.*',
-            '/\[/' => '\[',
-            '/\]/' => '\]',
+        $replacementsBeforeQuote = [
+            '*' => '_ASTERISK_WILDCARD_',
+            '$' => '_DOLLAR_WILDCARD_',
+        ];
+
+        $replacementsAfterQuote = [
+            '_ASTERISK_WILDCARD_' => '.*',
+            '_DOLLAR_WILDCARD_' => '$',
+        ];
+
+        $regexp = str_replace(
+            array_keys($replacementsBeforeQuote),
+            array_values($replacementsBeforeQuote),
+            $ruleValue
         );
 
-        $ruleValue = preg_replace(array_keys($replacements), array_values($replacements), $ruleValue);
+        $regexp = preg_quote($regexp, '/');
 
-        $regexp = '/^' . str_replace('/', '\/', $ruleValue) . '/';
-        return str_replace('\\\\/', '\/', $regexp);
+        $regexp = str_replace(
+            array_keys($replacementsAfterQuote),
+            array_values($replacementsAfterQuote),
+            $regexp
+        );
+
+        return '/^' . $regexp . '/';
     }
 }
