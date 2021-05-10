@@ -139,7 +139,7 @@ class RobotsTxtValidator
         }
 
         usort($directives, function ($row1, $row2) {
-            return mb_strlen($row1['rule']) > mb_strlen($row2['rule']);
+            return mb_strlen($row1['rule']) > mb_strlen($row2['rule']) ? 1 : -1;
         });
 
         return $directives;
