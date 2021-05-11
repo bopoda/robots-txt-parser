@@ -196,13 +196,13 @@ class RobotsTxtParser
         $previousDirective = $this->currentDirective;
         $this->currentDirective = $directive;
 
-        if (!$value) {
+        if ($value === "") {
             return;
         }
 
         switch ($directive) {
             case self::DIRECTIVE_USERAGENT:
-                if ($previousDirective != self::DIRECTIVE_USERAGENT) {
+                if ($previousDirective !== self::DIRECTIVE_USERAGENT) {
                     $this->userAgentsBuffer = [];
                 }
 
@@ -221,6 +221,7 @@ class RobotsTxtParser
                 }
 
                 break;
+
             case self::DIRECTIVE_CRAWL_DELAY:
 
                 foreach ($this->userAgentsBuffer as $userAgent) {

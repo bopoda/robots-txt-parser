@@ -3,7 +3,7 @@
 namespace RobotsTxtParser;
 
 /**
- * Class designed to check is url allowed or not to crawl by specific user-agent according to robots.txt rules.
+ * Class designed to check if url is allowed to be crawled by specific user-agent according to robots.txt rules.
  */
 class RobotsTxtValidator
 {
