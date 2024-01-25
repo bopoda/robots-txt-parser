@@ -40,7 +40,7 @@ Parsing is carried out according to the rules in accordance with Google & Yandex
 Install the latest version with
 
 ```bash
-$ composer require bopoda/robots-txt-parser
+composer require bopoda/robots-txt-parser
 ```
 
 ## Run tests
@@ -48,7 +48,7 @@ $ composer require bopoda/robots-txt-parser
 Run phpunit tests using command
 
 ```bash
-$ php vendor/bin/phpunit
+php vendor/bin/phpunit
 ```
 
 ### Usage example
