@@ -2,7 +2,9 @@
 
 namespace RobotsTxtParser;
 
-class AbsolutePathTest extends \PHPUnit\Framework\TestCase
+use PHPUnit\Framework\TestCase;
+
+class AbsolutePathTest extends TestCase
 {
     /**
      * @dataProvider generateDataForTest
@@ -25,7 +27,7 @@ class AbsolutePathTest extends \PHPUnit\Framework\TestCase
      * Generate test case data
      * @return array
      */
-    public function generateDataForTest()
+    public static function generateDataForTest()
     {
         return array(
             array(

@@ -22,7 +22,7 @@ class TyposDirectiveTest extends \PHPUnit\Framework\TestCase
      *
      * @return array
      */
-    public function generateDataForTest()
+    public static function generateDataForTest()
     {
         return array(
             array(

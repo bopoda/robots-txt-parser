@@ -7,7 +7,7 @@ class CleanParamTest extends \PHPUnit\Framework\TestCase
     /**
      * @link https://help.yandex.ru/webmaster/controlling-robot/robots-txt.xml#clean-param
      *
-     * @dataProvider generateDataForTest
+     * @dataProvider generateDataForTestProvider
      */
     public function testCleanParam($robotsTxtContent, $message = null)
     {
@@ -34,7 +34,7 @@ class CleanParamTest extends \PHPUnit\Framework\TestCase
      * Generate test case data
      * @return array
      */
-    public function generateDataForTest()
+    public static function generateDataForTestProvider()
     {
         return array(
             array(
@@ -60,7 +60,7 @@ class CleanParamTest extends \PHPUnit\Framework\TestCase
      * Generate test case data
      * @return array
      */
-    public function dataCleanParamWithPathTest()
+    public static function dataCleanParamWithPathTest()
     {
         return array(
             array(

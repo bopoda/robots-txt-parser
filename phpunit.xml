@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<phpunit bootstrap="tests/bootstrap.php">
-	<filter>
-		<whitelist>
-			<directory suffix=".php">src/RobotsTxtParser/</directory>
-		</whitelist>
-	</filter>
-	<testsuites>
-		<testsuite name="RobotsTxtParser Test Suite">
-			<directory>tests/RobotsTxtParser</directory>
-		</testsuite>
-	</testsuites>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" bootstrap="tests/bootstrap.php" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd" cacheDirectory=".phpunit.cache">
+  <testsuites>
+    <testsuite name="RobotsTxtParser Test Suite">
+      <directory>tests/RobotsTxtParser</directory>
+    </testsuite>
+  </testsuites>
+  <source>
+    <include>
+      <directory suffix=".php">src/RobotsTxtParser/</directory>
+    </include>
+  </source>
 </phpunit>
