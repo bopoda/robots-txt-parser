@@ -25,7 +25,7 @@ class WhitespacesTest extends \PHPUnit\Framework\TestCase
      * Generate test case data
      * @return array
      */
-    public function generateDataForTest()
+    public static function generateDataForTest()
     {
         return array(
             array(

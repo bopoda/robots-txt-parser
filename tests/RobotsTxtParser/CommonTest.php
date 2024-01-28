@@ -39,14 +39,14 @@ class CommonTest extends \PHPUnit\Framework\TestCase
      *
      * @return array
      */
-    public function isUrlAllowProvider()
+    public static function isUrlAllowProvider()
     {
         $robotsFolders = glob(__DIR__ . '/data/robots*');
 
         $dataProvider = array();
 
         foreach ($robotsFolders as $robotsFolder) {
-            $dataProvider = array_merge($dataProvider, $this->getDataForTestCase($robotsFolder, true));
+            $dataProvider = array_merge($dataProvider, self::getDataForTestCase($robotsFolder, true));
         }
 
         return $dataProvider;
@@ -57,27 +57,27 @@ class CommonTest extends \PHPUnit\Framework\TestCase
      *
      * @return array
      */
-    public function isUrlDisallowProvider()
+    public static function isUrlDisallowProvider()
     {
         $robotsFolders = glob(__DIR__ . '/data/robots*');
 
         $dataProvider = array();
 
         foreach ($robotsFolders as $robotsFolder) {
-            $dataProvider = array_merge($dataProvider, $this->getDataForTestCase($robotsFolder, false));
+            $dataProvider = array_merge($dataProvider, self::getDataForTestCase($robotsFolder, false));
         }
 
         return $dataProvider;
     }
 
-    private function getDataForTestCase($robotsFolder, $isAllowTest)
+    private static function getDataForTestCase($robotsFolder, $isAllowTest)
     {
         $robotsTxtContent = file_get_contents($robotsFolder . '/robots.txt');
 
         $file = $robotsFolder . ($isAllowTest ? '/expectedAllow' : '/expectedDisallow');
         $urlsToCheck = array_values(array_filter(explode(PHP_EOL, file_get_contents($file))));
         if (empty($urlsToCheck)) {
-            $this->markTestSkipped('not found test for allow urls in file ' . $file);
+            self::markTestSkipped('not found test for allow urls in file ' . $file);
         }
 
         $dataProvider = array();

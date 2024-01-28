@@ -2,7 +2,9 @@
 
 namespace RobotsTxtParser;
 
-class RobotsTxtValidatorTest extends \PHPUnit\Framework\TestCase
+use PHPUnit\Framework\TestCase;
+
+class RobotsTxtValidatorTest extends TestCase
 {
     /**
      * Check is url allow for user-agent *
@@ -38,7 +40,7 @@ class RobotsTxtValidatorTest extends \PHPUnit\Framework\TestCase
      *
      * @return array
      */
-    public function isUrlAllowRulesWithUrlsProvider()
+    public static function isUrlAllowRulesWithUrlsProvider()
     {
         return array(
             array(
@@ -136,7 +138,7 @@ class RobotsTxtValidatorTest extends \PHPUnit\Framework\TestCase
      *
      * @return array
      */
-    public function IsUrlAllowWithSpecificUserAgentProvider()
+    public static function IsUrlAllowWithSpecificUserAgentProvider()
     {
         return array(
             array(
@@ -177,7 +179,7 @@ class RobotsTxtValidatorTest extends \PHPUnit\Framework\TestCase
      *
      * @return array
      */
-    public function getRelativeUrlProvider()
+    public static function getRelativeUrlProvider()
     {
         return [
             [

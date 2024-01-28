@@ -57,7 +57,7 @@ class HttpTest extends \PHPUnit\Framework\TestCase
     /**
      * @return array
      */
-    public function InvalidEncodingDomains()
+    public static function InvalidEncodingDomains()
     {
         return array(
             array('dcga.fr'),
