@@ -6,11 +6,11 @@
   "homepage": "https://github.com/bopoda/robots-txt-parser",
   "license": "MIT",
   "require": {
-    "php": ">=5.4.0",
+    "php": "^7.4|^8.0",
     "ext-mbstring": "*"
   },
   "require-dev": {
-    "phpunit/phpunit": ">=5.7"
+    "phpunit/phpunit": "^10.0"
   },
   "authors": [
     {
