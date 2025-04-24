@@ -143,10 +143,8 @@ class RobotsTxtParser
 
     /**
      * Parse rules
-     *
-     * @return void
      */
-    private function prepareRules()
+    private function prepareRules(): void
     {
         $rows = explode(PHP_EOL, $this->content);
 

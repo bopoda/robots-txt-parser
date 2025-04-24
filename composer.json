@@ -30,6 +30,6 @@
   "scripts": {
     "test": "vendor/bin/phpunit",
     "fixer": "vendor/bin/php-cs-fixer fix src --diff --verbose --allow-risky=yes",
-    "psalm": "vendor/bin/psalm --threads=max --no-cache"
+    "psalm": "vendor/bin/psalm --php-version=8.3 --threads=max --no-cache"
   }
 }
