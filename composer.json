@@ -10,7 +10,9 @@
     "ext-mbstring": "*"
   },
   "require-dev": {
-    "phpunit/phpunit": "^9.5"
+    "phpunit/phpunit": "^9.5",
+    "friendsofphp/php-cs-fixer": "^3.75",
+    "vimeo/psalm": "^6.10"
   },
   "authors": [
     {
@@ -26,6 +28,8 @@
     "psr-4": {"RobotsTxtParser\\": "tests/RobotsTxtParser"}
   },
   "scripts": {
-    "test": "vendor/bin/phpunit"
+    "test": "vendor/bin/phpunit",
+    "fixer": "vendor/bin/php-cs-fixer fix src --diff --verbose --allow-risky=yes",
+    "psalm": "vendor/bin/psalm --threads=max --no-cache"
   }
 }

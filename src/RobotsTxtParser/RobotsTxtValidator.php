@@ -3,6 +3,8 @@
 namespace RobotsTxtParser;
 
 /**
+ * @psalm-suppress UnusedClass
+ *
  * Class designed to check if url is allowed to be crawled by specific user-agent according to robots.txt rules.
  */
 class RobotsTxtValidator
