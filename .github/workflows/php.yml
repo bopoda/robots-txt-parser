@@ -40,7 +40,13 @@ jobs:
             ${{ runner.os }}-php-${{ matrix.php-version }}-
 
       - name: Install dependencies
-        run: composer install --prefer-dist --no-progress
+        run: |
+          VERSION=${{ matrix.php-version }}
+          if [[ "$VERSION" == 8.0 ]]; then
+            composer install --prefer-dist --no-progress --ignore-platform-reqs
+          else
+            composer install --prefer-dist --no-progress
+          fi
 
       - name: Run test suite (PHPUnit)
         run: composer run-script test
