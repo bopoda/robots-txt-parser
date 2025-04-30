@@ -12,9 +12,6 @@ namespace RobotsTxtParser;
  * @link https://help.yandex.com/webmaster/controlling-robot/robots-txt.xml
  */
 
-// Strip invalid characters from UTF-8 strings
-ini_set('mbstring.substitute_character', "none");
-
 class RobotsTxtParser
 {
     // default encoding
@@ -60,11 +57,20 @@ class RobotsTxtParser
      */
     public function __construct($content, $encoding = self::DEFAULT_ENCODING)
     {
-        // convert encoding
-        $encoding = !empty($encoding) ? $encoding : mb_detect_encoding($content, mb_detect_order(), false);
+        $prev = ini_get('mbstring.substitute_character');
 
-        // set content
-        $this->content = mb_convert_encoding($content, 'UTF-8', $encoding);
+        try {
+            // Strip invalid characters from UTF-8 strings
+            ini_set('mbstring.substitute_character', "none");
+
+            // convert encoding
+            $encoding = !empty($encoding) ? $encoding : mb_detect_encoding($content, mb_detect_order(), false);
+            $content = mb_convert_encoding($content, 'UTF-8', $encoding);
+        } finally {
+            ini_set('mbstring.substitute_character', $prev);
+        }
+
+        $this->content = $content;
 
         $this->prepareRules();
     }
