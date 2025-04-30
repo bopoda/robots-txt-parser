@@ -15,7 +15,7 @@ jobs:
 
     strategy:
       matrix:
-        php-version: [7.4, 8.0, 8.3, 8.4]
+        php-version: [8.0, 8.3, 8.4]
 
     steps:
       - uses: actions/checkout@v3
@@ -40,13 +40,7 @@ jobs:
             ${{ runner.os }}-php-${{ matrix.php-version }}-
 
       - name: Install dependencies
-        run: |
-          VERSION=${{ matrix.php-version }}
-          if [[ "$VERSION" == 7.* || "$VERSION" == 8.0 || "$VERSION" == 8.1 || "$VERSION" == 8.2 || "$VERSION" == 8.3 ]]; then
-            composer install --prefer-dist --no-progress --ignore-platform-reqs
-          else
-            composer install --prefer-dist --no-progress
-          fi
+        run: composer install --prefer-dist --no-progress
 
       - name: Run test suite (PHPUnit)
         run: composer run-script test

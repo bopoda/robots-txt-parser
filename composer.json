@@ -6,7 +6,7 @@
   "homepage": "https://github.com/bopoda/robots-txt-parser",
   "license": "MIT",
   "require": {
-    "php": "^7.4|^8.0",
+    "php": "^8.0",
     "ext-mbstring": "*"
   },
   "require-dev": {
