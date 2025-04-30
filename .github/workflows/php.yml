@@ -11,7 +11,6 @@ permissions:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -41,7 +40,12 @@ jobs:
             ${{ runner.os }}-php-${{ matrix.php-version }}-
 
       - name: Install dependencies
-        run: composer install --prefer-dist --no-progress
+        run: |
+          if [[ "${{ matrix.php-version }}" == "7.4" ]]; then
+            composer install --prefer-dist --no-progress --ignore-platform-reqs
+          else
+            composer install --prefer-dist --no-progress
+          fi
 
       - name: Run test suite (PHPUnit)
         run: composer run-script test
