@@ -1,60 +1,62 @@
-name: PHP Composer
+name: CI
 
 on:
   push:
     branches: [ "master" ]
   pull_request:
-    branches: [ "master" ]
-
-permissions:
-  contents: read
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
-        php-version: [8.0, 8.3, 8.4]
+        php-version: ['7.4', '8.0', '8.1', '8.2', '8.3', '8.4']
 
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up PHP ${{ matrix.php-version }}
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          tools: composer, phpunit
+
+      - name: Install dependencies
+        run: composer update --prefer-dist --no-progress
+
+      - name: Run test suite (PHPUnit)
+        run: composer test
+
+  static-analysis:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
 
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php-version }}
-          extensions: mbstring, intl, pdo
-          coverage: none
-
-      - name: Validate composer.json and composer.lock
-        run: composer validate --strict
-
-      - name: Cache Composer packages
-        id: composer-cache
-        uses: actions/cache@v3
-        with:
-          path: vendor
-          key: ${{ runner.os }}-php-${{ matrix.php-version }}-${{ hashFiles('**/composer.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-php-${{ matrix.php-version }}-
+          php-version: '8.3'
+          tools: composer, psalm
 
       - name: Install dependencies
-        run: |
-          VERSION=${{ matrix.php-version }}
-          if [[ "$VERSION" == 8.0 ]]; then
-            composer install --prefer-dist --no-progress --ignore-platform-reqs
-          else
-            composer install --prefer-dist --no-progress
-          fi
-
-      - name: Run test suite (PHPUnit)
-        run: composer run-script test
-
-      - name: Run PHP-CS-Fixer
-        if: ${{ matrix.php-version == '8.3' }}
-        run: composer run-script fixer
+        run: composer update --prefer-dist --no-progress
 
       - name: Run Psalm
-        if: ${{ matrix.php-version == '8.3' }}
-        run: composer run-script psalm
+        run: composer psalm
+
+  fix-style:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          tools: composer
+
+      - name: Install dependencies
+        run: composer update --prefer-dist --no-progress
+
+      - name: Run PHP-CS-Fixer
+        run: composer fixer
