@@ -123,7 +123,7 @@ class RobotsTxtParser
     }
 
     /**
-     * Parse rules
+     * Parse rules (directives) from robots.txt content
      */
     private function prepareRules(): void
     {
@@ -234,10 +234,11 @@ class RobotsTxtParser
         try {
             ini_set('mbstring.substitute_character', "none");
 
-            $encoding = !empty($encoding) ? $encoding : mb_detect_encoding($content, mb_detect_order(), false);
+            $encoding = $encoding ?: mb_detect_encoding($content, mb_detect_order(), true) ?: 'UTF-8';
             $result = mb_convert_encoding($content, 'UTF-8', $encoding);
 
-            return $result !== false ? $result : $content;
+            // Normalize all line endings to PHP_EOL
+            return preg_replace("/\R/u", PHP_EOL, $result !== false ? $result : $content);
         } finally {
             ini_set('mbstring.substitute_character', $prev);
         }
