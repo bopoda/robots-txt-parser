@@ -1,7 +1,7 @@
 robots-txt-parser
 =================
 
-[![Build Status](https://travis-ci.org/bopoda/robots-txt-parser.svg?branch=master)](https://travis-ci.org/bopoda/robots-txt-parser)
+[![Build Status](https://github.com/bopoda/robots-txt-parser/actions/workflows/php.yml/badge.svg)](https://github.com/bopoda/robots-txt-parser/actions/workflows/php.yml)
 
 ## [RobotsTxtParser](https://github.com/bopoda/robots-txt-parser/blob/master/src/RobotsTxtParser/RobotsTxtParser.php) — PHP class for parsing all the directives of the robots.txt files
 

@@ -12,23 +12,29 @@ namespace RobotsTxtParser;
  * @link https://help.yandex.com/webmaster/controlling-robot/robots-txt.xml
  */
 
+// Strip invalid characters from UTF-8 strings
+ini_set('mbstring.substitute_character', "none");
+
+/**
+ * @psalm-suppress UnusedClass
+ */
 class RobotsTxtParser
 {
     // default encoding
-    const DEFAULT_ENCODING = 'UTF-8';
+    public const DEFAULT_ENCODING = 'UTF-8';
 
     // directives
-    const DIRECTIVE_NOINDEX = 'noindex';
-    const DIRECTIVE_ALLOW = 'allow';
-    const DIRECTIVE_DISALLOW = 'disallow';
-    const DIRECTIVE_HOST = 'host';
-    const DIRECTIVE_SITEMAP = 'sitemap';
-    const DIRECTIVE_USERAGENT = 'user-agent';
-    const DIRECTIVE_CRAWL_DELAY = 'crawl-delay';
-    const DIRECTIVE_CLEAN_PARAM = 'clean-param';
+    public const DIRECTIVE_NOINDEX = 'noindex';
+    public const DIRECTIVE_ALLOW = 'allow';
+    public const DIRECTIVE_DISALLOW = 'disallow';
+    public const DIRECTIVE_HOST = 'host';
+    public const DIRECTIVE_SITEMAP = 'sitemap';
+    public const DIRECTIVE_USERAGENT = 'user-agent';
+    public const DIRECTIVE_CRAWL_DELAY = 'crawl-delay';
+    public const DIRECTIVE_CLEAN_PARAM = 'clean-param';
 
     //default user-agent
-    const USER_AGENT_ALL = '*';
+    public const USER_AGENT_ALL = '*';
 
     /**
      * @var string $content Original robots.txt content
@@ -38,22 +44,21 @@ class RobotsTxtParser
     /**
      * @var array $rules Rules with all parsed directives by all user-agents
      */
-    private $rules = [];
+    private array $rules = [];
 
     /**
-     * @var string $currentDirective Current directive
+     * Current directive
      */
-    private $currentDirective;
+    private string $currentDirective = '';
 
     /**
-     * @var array $userAgentsBuffer Buffer of current user-agents
+     * @var array<string> $userAgentsBuffer Buffer of current user-agents
      */
-    private $userAgentsBuffer = [];
+    private array $userAgentsBuffer = [];
 
     /**
      * @param string $content Robots.txt content
      * @param string $encoding Encoding
-     * @return void
      */
     public function __construct($content, $encoding = self::DEFAULT_ENCODING)
     {
@@ -146,10 +151,8 @@ class RobotsTxtParser
 
     /**
      * Parse rules
-     *
-     * @return void
      */
-    private function prepareRules()
+    private function prepareRules(): void
     {
         $rows = explode(PHP_EOL, $this->content);
 
@@ -175,13 +178,11 @@ class RobotsTxtParser
 
     /**
      * Remove duplicates rules
-     *
-     * @return void
      */
-    private function removeDuplicates()
+    private function removeDuplicates(): void
     {
-        foreach ($this->rules as $userAgent => $rules) {
-            foreach ($this->rules[$userAgent] as $directive => $value) {
+        foreach (array_keys($this->rules) as $userAgent) {
+            foreach (array_keys($this->rules[$userAgent]) as $directive) {
                 if (is_array($this->rules[$userAgent][$directive])) {
                     $this->rules[$userAgent][$directive] = array_values(array_unique($this->rules[$userAgent][$directive]));
                 }
@@ -192,12 +193,8 @@ class RobotsTxtParser
     /**
      * Handle directive with value
      * Assign value to directive
-     *
-     * @param string $directive
-     * @param string $value
-     * @return void
      */
-    private function handleDirective($directive, $value)
+    private function handleDirective(string $directive, string $value): void
     {
         $previousDirective = $this->currentDirective;
         $this->currentDirective = $directive;
@@ -231,7 +228,7 @@ class RobotsTxtParser
             case self::DIRECTIVE_CRAWL_DELAY:
 
                 foreach ($this->userAgentsBuffer as $userAgent) {
-                    $this->rules[$userAgent][self::DIRECTIVE_CRAWL_DELAY] = (double)$value;
+                    $this->rules[$userAgent][self::DIRECTIVE_CRAWL_DELAY] = (float)$value;
                 }
 
                 break;

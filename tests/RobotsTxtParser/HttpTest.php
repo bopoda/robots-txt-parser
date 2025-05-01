@@ -50,8 +50,10 @@ class HttpTest extends \PHPUnit\Framework\TestCase
         $parser = new RobotsTxtParser($robotsTxtContent);
         $rules = $parser->getRules();
 
-        $this->assertNotEmpty($rules,
-            'got empty rules from ' . $domain . '/robots.txt. It seems problems with encoding or robots.txt was changed');
+        $this->assertNotEmpty(
+            $rules,
+            'got empty rules from ' . $domain . '/robots.txt. It seems problems with encoding or robots.txt was changed'
+        );
     }
 
     /**

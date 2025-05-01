@@ -2,7 +2,7 @@
 
 namespace RobotsTxtParser;
 
-use \PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\TestCase;
 
 class CrawlDelayTest extends TestCase
 {

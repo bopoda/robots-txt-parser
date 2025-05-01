@@ -69,7 +69,7 @@ class CommentsTest extends \PHPUnit\Framework\TestCase
      * Generate test case data
      * @return array
      */
-    public static  function generateDataFor2Test()
+    public static function generateDataFor2Test()
     {
         return array(
             array(
