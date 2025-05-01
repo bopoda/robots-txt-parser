@@ -34,6 +34,21 @@ class RobotsTxtParser
     public const USER_AGENT_ALL = '*';
 
     /**
+     * List of supported directives
+     * @var array<int, string>
+     */
+    private const ALLOWED_DIRECTIVES = [
+        self::DIRECTIVE_NOINDEX,
+        self::DIRECTIVE_ALLOW,
+        self::DIRECTIVE_DISALLOW,
+        self::DIRECTIVE_HOST,
+        self::DIRECTIVE_SITEMAP,
+        self::DIRECTIVE_USERAGENT,
+        self::DIRECTIVE_CRAWL_DELAY,
+        self::DIRECTIVE_CLEAN_PARAM,
+    ];
+
+    /**
      * @var string $content Original robots.txt content
      */
     private $content = '';
@@ -108,23 +123,6 @@ class RobotsTxtParser
     }
 
     /**
-     * Return array of supported directives
-     */
-    private function getAllowedDirectives(): array
-    {
-        return [
-            self::DIRECTIVE_NOINDEX,
-            self::DIRECTIVE_ALLOW,
-            self::DIRECTIVE_DISALLOW,
-            self::DIRECTIVE_HOST,
-            self::DIRECTIVE_SITEMAP,
-            self::DIRECTIVE_USERAGENT,
-            self::DIRECTIVE_CRAWL_DELAY,
-            self::DIRECTIVE_CLEAN_PARAM,
-        ];
-    }
-
-    /**
      * Parse rules
      */
     private function prepareRules(): void
@@ -141,7 +139,7 @@ class RobotsTxtParser
             $directive = trim(strtolower($parts[0]));
             $value = trim($parts[1]);
 
-            if (!in_array($directive, $this->getAllowedDirectives(), true)) {
+            if (!in_array($directive, self::ALLOWED_DIRECTIVES, true)) {
                 continue;
             }
 
