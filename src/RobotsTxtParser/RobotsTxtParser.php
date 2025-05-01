@@ -34,6 +34,21 @@ class RobotsTxtParser
     public const USER_AGENT_ALL = '*';
 
     /**
+     * List of supported directives
+     * @var array<int, string>
+     */
+    private const ALLOWED_DIRECTIVES = [
+        self::DIRECTIVE_NOINDEX,
+        self::DIRECTIVE_ALLOW,
+        self::DIRECTIVE_DISALLOW,
+        self::DIRECTIVE_HOST,
+        self::DIRECTIVE_SITEMAP,
+        self::DIRECTIVE_USERAGENT,
+        self::DIRECTIVE_CRAWL_DELAY,
+        self::DIRECTIVE_CLEAN_PARAM,
+    ];
+
+    /**
      * @var string $content Original robots.txt content
      */
     private $content = '';
@@ -57,22 +72,9 @@ class RobotsTxtParser
      * @param string $content Robots.txt content
      * @param string $encoding Encoding
      */
-    public function __construct($content, $encoding = self::DEFAULT_ENCODING)
+    public function __construct(string $content, string $encoding = self::DEFAULT_ENCODING)
     {
-        $prev = ini_get('mbstring.substitute_character');
-
-        try {
-            // Strip invalid characters from UTF-8 strings
-            ini_set('mbstring.substitute_character', "none");
-
-            // convert encoding
-            $encoding = !empty($encoding) ? $encoding : mb_detect_encoding($content, mb_detect_order(), false);
-            $content = mb_convert_encoding($content, 'UTF-8', $encoding);
-        } finally {
-            ini_set('mbstring.substitute_character', $prev);
-        }
-
-        $this->content = $content;
+        $this->content = $this->prepareContent($content, $encoding);
 
         $this->prepareRules();
     }
@@ -82,11 +84,8 @@ class RobotsTxtParser
      * Use $userAgent = NULL to get all rules for all user-agents grouped by user-agent. User-agents will return in lower case.
      * Use $userAgent = '*' to get common rules.
      * Use $userAgent = 'YandexBot' to get rules for user-agent 'YandexBot'.
-     *
-     * @param string $userAgent
-     * @return array
      */
-    public function getRules($userAgent = null)
+    public function getRules(?string $userAgent = null): array
     {
         if (is_null($userAgent)) {
             //return all rules
@@ -104,10 +103,8 @@ class RobotsTxtParser
     /**
      * Get sitemaps links.
      * Sitemap always relates to all user-agents and return in rules with user-agent "*"
-     *
-     * @return array
      */
-    public function getSitemaps()
+    public function getSitemaps(): array
     {
         $rules = $this->getRules(self::USER_AGENT_ALL);
         if (!empty($rules[self::DIRECTIVE_SITEMAP])) {
@@ -119,35 +116,14 @@ class RobotsTxtParser
 
     /**
      * Return original robots.txt content
-     *
-     * @return string
      */
-    public function getContent()
+    public function getContent(): string
     {
         return $this->content;
     }
 
     /**
-     * Return array of supported directives
-     *
-     * @return array
-     */
-    private function getAllowedDirectives()
-    {
-        return [
-            self::DIRECTIVE_NOINDEX,
-            self::DIRECTIVE_ALLOW,
-            self::DIRECTIVE_DISALLOW,
-            self::DIRECTIVE_HOST,
-            self::DIRECTIVE_SITEMAP,
-            self::DIRECTIVE_USERAGENT,
-            self::DIRECTIVE_CRAWL_DELAY,
-            self::DIRECTIVE_CLEAN_PARAM,
-        ];
-    }
-
-    /**
-     * Parse rules
+     * Parse rules (directives) from robots.txt content
      */
     private function prepareRules(): void
     {
@@ -163,7 +139,7 @@ class RobotsTxtParser
             $directive = trim(strtolower($parts[0]));
             $value = trim($parts[1]);
 
-            if (!in_array($directive, $this->getAllowedDirectives(), true)) {
+            if (!in_array($directive, self::ALLOWED_DIRECTIVES, true)) {
                 continue;
             }
 
@@ -248,6 +224,23 @@ class RobotsTxtParser
                 }
 
                 break;
+        }
+    }
+
+    private function prepareContent(string $content, string $encoding): string
+    {
+        $prev = ini_get('mbstring.substitute_character');
+
+        try {
+            ini_set('mbstring.substitute_character', "none");
+
+            $encoding = $encoding ?: mb_detect_encoding($content, mb_detect_order(), true) ?: 'UTF-8';
+            $result = mb_convert_encoding($content, 'UTF-8', $encoding);
+
+            // Normalize all line endings to PHP_EOL
+            return preg_replace("/\R/u", PHP_EOL, $result !== false ? $result : $content);
+        } finally {
+            ini_set('mbstring.substitute_character', $prev);
         }
     }
 }
