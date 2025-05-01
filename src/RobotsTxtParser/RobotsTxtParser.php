@@ -12,9 +12,6 @@ namespace RobotsTxtParser;
  * @link https://help.yandex.com/webmaster/controlling-robot/robots-txt.xml
  */
 
-// Strip invalid characters from UTF-8 strings
-ini_set('mbstring.substitute_character', "none");
-
 /**
  * @psalm-suppress UnusedClass
  */
